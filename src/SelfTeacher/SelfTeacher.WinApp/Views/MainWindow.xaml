@@ -3,8 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525">
+        Title="{Binding Title}" Height="350" Width="525"
+        Icon="../Assets/Images/Logo/logo-default.png"
+        WindowStyle="None"
+        AllowsTransparency="True">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <StackPanel>
+            <ContentControl prism:RegionManager.RegionName="AuthRegion" />
+            <ContentControl prism:RegionManager.RegionName="RegistrationRegion" />
+            <ContentControl prism:RegionManager.RegionName="MainRegison" />
+        </StackPanel>
     </Grid>
 </Window>
