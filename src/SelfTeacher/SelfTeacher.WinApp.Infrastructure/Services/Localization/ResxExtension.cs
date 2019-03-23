@@ -18,7 +18,7 @@ using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
 
-namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
+namespace SelfTeacher.WinApp.Domain.Services.Localization
 {
     /// <summary>
     /// Defines the handling method for the <see cref="ResxExtension.GetResource"/> event

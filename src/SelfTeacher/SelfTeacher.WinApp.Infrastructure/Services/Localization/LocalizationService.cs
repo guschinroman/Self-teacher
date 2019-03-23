@@ -1,13 +1,15 @@
-﻿using GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization;
-using SelfTeacher.WinApp.Infrastructure.Service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows;
-using System.Windows.Markup;
+using SelfTeacher.WinApp.Domain.Service;
+using SelfTeacher.WinApp.Domain.Services.Localization;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Markup;
 
 namespace SelfTeacher.WinApp.Domain.Services
 {
@@ -79,10 +81,10 @@ namespace SelfTeacher.WinApp.Domain.Services
                 return string.Format("{0}.{1}", dictionary, key);
             }
 
-            if (!targetDictionary.Contains(key))
+            if (!targetDictionary.ContainsKey(key))
             {
                 _logger.Error("Try get not exists localization string: {0} - {1}", dictionary, key);
-                if (!targetDictionary.Contains(dictionary + key))
+                if (!targetDictionary.ContainsKey(dictionary + key))
                 {
                     _logger.Error("Try get not exists localization string: {0} - {1}", dictionary, dictionary + key);
                     return string.Format("{0}.{1}", dictionary, key);
@@ -99,7 +101,7 @@ namespace SelfTeacher.WinApp.Domain.Services
             if (!_dictionaries[_uiCulture.LCID].TryGetValue(dictionary, out targetDictionary))
                 return false;
 
-            return targetDictionary.Contains(key);
+            return targetDictionary.ContainsKey(key);
         }
 
         protected void LoadDictionary(int culture, string key, string file)
@@ -107,9 +109,11 @@ namespace SelfTeacher.WinApp.Domain.Services
             try
             {
                 var uri = new Uri(Path.Combine("/Resources/", file), UriKind.Relative);
-                var info = Application.GetResourceStream(uri);
-                var reader = new XamlReader();
-                var dictionary = (ResourceDictionary)reader.LoadAsync(info.Stream);
+
+                var dictionary = new ResourceDictionary
+                {
+                    Source = uri
+                };
 
                 _dictionaries[culture].Add(key, dictionary);
             }

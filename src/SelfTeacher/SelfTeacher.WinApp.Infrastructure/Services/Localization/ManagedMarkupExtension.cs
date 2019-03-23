@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
-using System.Windows;
 using System.Windows.Markup;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Markup;
 
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2007/xaml/presentation", "GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization")]
 [assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2008/xaml/presentation", "GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization")]
 
-namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
+namespace SelfTeacher.WinApp.Domain.Services.Localization
 {
     /// <summary>
     /// Defines a base class for markup extensions which are managed by a central 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
+namespace SelfTeacher.WinApp.Domain.Services.Localization
 {
 
     /// <summary>

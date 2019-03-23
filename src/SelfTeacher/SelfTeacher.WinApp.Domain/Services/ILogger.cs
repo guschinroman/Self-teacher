@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SelfTeacher.WinApp.Infrastructure.Service
+namespace SelfTeacher.WinApp.Domain.Services
 {
     public interface ILogger
     {

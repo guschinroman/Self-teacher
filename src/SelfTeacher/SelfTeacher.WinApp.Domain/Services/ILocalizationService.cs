@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace SelfTeacher.WinApp.Infrastructure.Service
+namespace SelfTeacher.WinApp.Domain.Service
 {
     public interface ILocalizationService
     {

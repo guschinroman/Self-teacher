@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
-using System.Windows.Data;
+using Windows.UI.Xaml.Data;
 
-namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
+namespace SelfTeacher.WinApp.Domain.Services.Localization
 {    /// <summary>
     /// Defines a type converter for enum values that converts enum values to 
     /// and from string representations using resources
@@ -136,11 +136,11 @@ namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
             // otherwise find the combination of flag bit values
             // that makes up the value
             //
-            ulong lValue = Convert.ToUInt32(value);
+            ulong lValue =  (UInt32)(value);
             string result = null;
             foreach (object flagValue in _flagValues)
             {
-                ulong lFlagValue = Convert.ToUInt32(flagValue);
+                ulong lFlagValue = (UInt32)(flagValue);
                 if (IsSingleBitValue(lFlagValue))
                 {
                     if ((lFlagValue & lValue) == lFlagValue)
@@ -193,7 +193,7 @@ namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
                 {
                     return null;
                 }
-                result |= Convert.ToUInt32(value);
+                result |= UInt32.Parse((string)value);
             }
             return Enum.ToObject(EnumType, result);
         }
@@ -331,9 +331,9 @@ namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
         /// <param name="parameter">not used</param>
         /// <param name="culture">The culture to convert</param>
         /// <returns>The converted value</returns>
-        object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return ConvertTo(null, culture, value, targetType);
+            return ConvertTo(null, CultureInfo.GetCultureInfo(language), value, targetType);
         }
 
         /// <summary>
@@ -344,10 +344,10 @@ namespace GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization
         /// <param name="parameter">not used</param>
         /// <param name="culture">The culture to convert</param>
         /// <returns>The converted value</returns>
-        object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return ConvertFrom(null, culture, value);
-        }
 
+        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        {
+            return ConvertFrom(null, CultureInfo.GetCultureInfo(language), value);
+        }
     }
 }
