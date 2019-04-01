@@ -1,14 +1,14 @@
-﻿using System;
+﻿using SelfTeacher.WinApp.Services.Localization;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Markup;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Markup;
 
-[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization")]
-[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2007/xaml/presentation", "GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization")]
-[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2008/xaml/presentation", "GreatPatrioticWar.Client.Common.Infrastructure.Services.Localization")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2006/xaml/presentation", "SelfTeacher.WinApp.Services.Localization")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2007/xaml/presentation", "SelfTeacher.WinApp.Services.Localization")]
+[assembly: XmlnsDefinition("http://schemas.microsoft.com/winfx/2008/xaml/presentation", "SelfTeacher.WinApp.Services.Localization")]
 
 namespace SelfTeacher.WinApp.Domain.Services.Localization
 {

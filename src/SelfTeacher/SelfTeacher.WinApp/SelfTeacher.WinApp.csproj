@@ -38,6 +38,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -120,6 +122,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\Localization\LocalizationService.cs" />
+    <Compile Include="Services\Localization\ManagedMarkupExtension.cs" />
+    <Compile Include="Services\Localization\MarkupExtensionManager.cs" />
+    <Compile Include="Services\Localization\ResourceEnumConverter.cs" />
+    <Compile Include="Services\Localization\ResxExtension.cs" />
+    <Compile Include="Services\Settings\Settings\WinAppSettingsService.cs" />
     <Compile Include="ViewModels\Auth\AuthFormViewModel.cs" />
     <Compile Include="ViewModels\Auth\AuthViewViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -174,6 +182,7 @@
     <Resource Include="Assets\Fonts\Lato-SemiboldItalic.ttf" />
     <Resource Include="Assets\Fonts\Lato-Thin.ttf" />
     <Resource Include="Assets\Fonts\Lato-ThinItalic.ttf" />
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -190,6 +199,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Logo\logo-default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SelfTeacher.WinApp.Domain\SelfTeacher.WinApp.Domain.csproj">
+      <Project>{6B2A2780-3918-48A0-9846-8FC978FB6978}</Project>
+      <Name>SelfTeacher.WinApp.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SelfTeacher.WinApp.Infrastructure\SelfTeacher.WinApp.Infrastructure.csproj">
+      <Project>{682b5079-087d-4743-bb5c-637c7b16af4c}</Project>
+      <Name>SelfTeacher.WinApp.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

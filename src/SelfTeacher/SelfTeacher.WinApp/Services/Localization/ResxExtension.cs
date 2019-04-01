@@ -17,8 +17,9 @@ using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using SelfTeacher.WinApp.Domain.Services.Localization;
 
-namespace SelfTeacher.WinApp.Domain.Services.Localization
+namespace SelfTeacher.WinApp.Services.Localization
 {
     /// <summary>
     /// Defines the handling method for the <see cref="ResxExtension.GetResource"/> event

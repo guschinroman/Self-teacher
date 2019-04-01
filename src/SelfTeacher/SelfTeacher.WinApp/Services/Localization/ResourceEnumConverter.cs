@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Resources;
-using Windows.UI.Xaml.Data;
+using System.Windows.Data;
 
-namespace SelfTeacher.WinApp.Domain.Services.Localization
+namespace SelfTeacher.WinApp.Services.Localization
 {    /// <summary>
     /// Defines a type converter for enum values that converts enum values to 
     /// and from string representations using resources
@@ -331,9 +331,9 @@ namespace SelfTeacher.WinApp.Domain.Services.Localization
         /// <param name="parameter">not used</param>
         /// <param name="culture">The culture to convert</param>
         /// <returns>The converted value</returns>
-        public object Convert(object value, Type targetType, object parameter, string language)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ConvertTo(null, CultureInfo.GetCultureInfo(language), value, targetType);
+            return ConvertTo(null, culture, value, targetType);
         }
 
         /// <summary>
@@ -345,9 +345,9 @@ namespace SelfTeacher.WinApp.Domain.Services.Localization
         /// <param name="culture">The culture to convert</param>
         /// <returns>The converted value</returns>
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ConvertFrom(null, CultureInfo.GetCultureInfo(language), value);
-        }
+            return ConvertFrom(null, culture, value);
+        }   
     }
 }

@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows;
 using SelfTeacher.WinApp.Domain.Service;
-using SelfTeacher.WinApp.Domain.Services.Localization;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Markup;
+using SelfTeacher.WinApp.Domain.Services;
+using SelfTeacher.WinApp.Domain.Services.Settings;
 
-namespace SelfTeacher.WinApp.Domain.Services
+namespace SelfTeacher.WinApp.Services.Localization
 {
     public abstract class LocalizationService : ILocalizationService
     {
         private CultureInfo _uiCulture;
         private readonly ILogger _logger;
-        private readonly ICommonSettingsService _settingsService;
+        private readonly IWinAppSettingService _settingsService;
         private readonly Dictionary<int, Dictionary<string, ResourceDictionary>> _dictionaries;
 
         public event Action<CultureInfo> UICultureChanged;
@@ -32,7 +29,7 @@ namespace SelfTeacher.WinApp.Domain.Services
             get => (int)ELanguage.English;
         }
 
-        protected LocalizationService(ICommonSettingsService settingService, ILogger logger)
+        protected LocalizationService(IWinAppSettingService settingService, ILogger logger)
         {
             _settingsService = settingService;
             _logger = logger;
@@ -81,10 +78,10 @@ namespace SelfTeacher.WinApp.Domain.Services
                 return string.Format("{0}.{1}", dictionary, key);
             }
 
-            if (!targetDictionary.ContainsKey(key))
+            if (!targetDictionary.Contains(key))
             {
                 _logger.Error("Try get not exists localization string: {0} - {1}", dictionary, key);
-                if (!targetDictionary.ContainsKey(dictionary + key))
+                if (!targetDictionary.Contains(dictionary + key))
                 {
                     _logger.Error("Try get not exists localization string: {0} - {1}", dictionary, dictionary + key);
                     return string.Format("{0}.{1}", dictionary, key);
@@ -101,7 +98,7 @@ namespace SelfTeacher.WinApp.Domain.Services
             if (!_dictionaries[_uiCulture.LCID].TryGetValue(dictionary, out targetDictionary))
                 return false;
 
-            return targetDictionary.ContainsKey(key);
+            return targetDictionary.Contains(key);
         }
 
         protected void LoadDictionary(int culture, string key, string file)
