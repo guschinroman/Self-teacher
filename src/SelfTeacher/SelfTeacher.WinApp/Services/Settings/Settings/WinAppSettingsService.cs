@@ -1,9 +1,6 @@
 ﻿using SelfTeacher.WinApp.Domain.Services.Settings;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace SelfTeacher.WinApp.Infrastructure.Services.Settings
+namespace SelfTeacher.WinApp.Services.Settings
 {
     public class WinAppSettingsService : IWinAppSettingService
     {

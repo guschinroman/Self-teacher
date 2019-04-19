@@ -1,6 +1,6 @@
 ﻿
 public enum ELanguage
 {
-    Russian,
-    English
+    Russian = 1049,
+    English = 2057
 }

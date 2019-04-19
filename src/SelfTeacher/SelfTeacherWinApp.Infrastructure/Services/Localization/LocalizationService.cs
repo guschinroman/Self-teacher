@@ -4,13 +4,14 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Windows;
+using NLog;
 using SelfTeacher.WinApp.Domain.Service;
 using SelfTeacher.WinApp.Domain.Services;
 using SelfTeacher.WinApp.Domain.Services.Settings;
 
-namespace SelfTeacher.WinApp.Services.Localization
+namespace SelfTeacher.WinApp.Infrastructure.Services.Localization
 {
-    public abstract class LocalizationService : ILocalizationService
+    public class LocalizationService : ILocalizationService
     {
         private CultureInfo _uiCulture;
         private readonly ILogger _logger;
@@ -29,7 +30,7 @@ namespace SelfTeacher.WinApp.Services.Localization
             get => (int)ELanguage.English;
         }
 
-        protected LocalizationService(IWinAppSettingService settingService, ILogger logger)
+        public LocalizationService(IWinAppSettingService settingService, ILogger logger)
         {
             _settingsService = settingService;
             _logger = logger;
@@ -46,9 +47,14 @@ namespace SelfTeacher.WinApp.Services.Localization
                 {(int) ELanguage.Russian, new Dictionary<string, ResourceDictionary>()},
                 {(int) ELanguage.English, new Dictionary<string, ResourceDictionary>()}
             };
+            Initialize();
         }
 
-        public abstract void Initialize();
+        public void Initialize()
+        {
+            this.LoadDictionary((int)ELanguage.Russian, "Common", "ru\\Common.xaml");
+            this.LoadDictionary((int)ELanguage.English, "Common", "en\\Common.xaml");
+        }
 
         public CultureInfo UICulture
         {
@@ -57,7 +63,6 @@ namespace SelfTeacher.WinApp.Services.Localization
             {
                 if (_uiCulture != value)
                 {
-                    _uiCulture = value;
                     _uiCulture = value;
                     Thread.CurrentThread.CurrentUICulture = value;
                     Thread.CurrentThread.CurrentCulture = value;
@@ -72,7 +77,8 @@ namespace SelfTeacher.WinApp.Services.Localization
         public string Get(string dictionary, string key, params object[] args)
         {
             ResourceDictionary targetDictionary;
-            if (!_dictionaries[_uiCulture.LCID].TryGetValue(dictionary, out targetDictionary))
+            int currentLcid = (_uiCulture.LCID == (int)ELanguage.Russian) ? (int)ELanguage.Russian : (int)ELanguage.English;
+            if (!_dictionaries[currentLcid].TryGetValue(dictionary, out targetDictionary))
             {
                 _logger.Error("Try get not exists localization string: {0} - {1}", dictionary, key);
                 return string.Format("{0}.{1}", dictionary, key);
@@ -105,7 +111,7 @@ namespace SelfTeacher.WinApp.Services.Localization
         {
             try
             {
-                var uri = new Uri(Path.Combine("/Resources/", file), UriKind.Relative);
+                var uri = new Uri(Path.Combine("Assets\\Text", file), UriKind.Relative);
 
                 var dictionary = new ResourceDictionary
                 {

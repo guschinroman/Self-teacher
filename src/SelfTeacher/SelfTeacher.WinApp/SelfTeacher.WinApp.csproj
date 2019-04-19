@@ -94,15 +94,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Assets\Text\en\Common.xaml">
+    <Content Include="Assets\Text\en\Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Assets\Text\ru\Common.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Text\ru\Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AuthView\AuthForm.xaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Views\AuthView\AuthFormView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -122,18 +124,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Services\Localization\LocalizationService.cs" />
-    <Compile Include="Services\Localization\ManagedMarkupExtension.cs" />
-    <Compile Include="Services\Localization\MarkupExtensionManager.cs" />
-    <Compile Include="Services\Localization\ResourceEnumConverter.cs" />
-    <Compile Include="Services\Localization\ResxExtension.cs" />
     <Compile Include="Services\Settings\Settings\WinAppSettingsService.cs" />
     <Compile Include="ViewModels\Auth\AuthFormViewModel.cs" />
     <Compile Include="ViewModels\Auth\AuthViewViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Auth\SocialButtonsViewModel.cs" />
-    <Compile Include="Views\AuthView\AuthForm.xaml.cs">
-      <DependentUpon>AuthForm.xaml</DependentUpon>
+    <Compile Include="Views\AuthView\AuthFormView.xaml.cs">
+      <DependentUpon>AuthFormView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AuthView\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
@@ -182,6 +179,9 @@
     <Resource Include="Assets\Fonts\Lato-SemiboldItalic.ttf" />
     <Resource Include="Assets\Fonts\Lato-Thin.ttf" />
     <Resource Include="Assets\Fonts\Lato-ThinItalic.ttf" />
+    <None Include="NLog.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -189,8 +189,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DryIoc.CommonServiceLocator">
+      <Version>4.0.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Windows.Shell">
       <Version>3.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.6.2</Version>
     </PackageReference>
     <PackageReference Include="Prism.DryIoc" Version="7.1.0.431" />
   </ItemGroup>
@@ -205,9 +211,9 @@
       <Project>{6B2A2780-3918-48A0-9846-8FC978FB6978}</Project>
       <Name>SelfTeacher.WinApp.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SelfTeacher.WinApp.Infrastructure\SelfTeacher.WinApp.Infrastructure.csproj">
-      <Project>{682b5079-087d-4743-bb5c-637c7b16af4c}</Project>
-      <Name>SelfTeacher.WinApp.Infrastructure</Name>
+    <ProjectReference Include="..\SelfTeacherWinApp.Infrastructure\SelfTeacherWinApp.Infrastructure.csproj">
+      <Project>{EED2ACC6-6E65-475B-B5B2-2AB04995F60B}</Project>
+      <Name>SelfTeacherWinApp.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

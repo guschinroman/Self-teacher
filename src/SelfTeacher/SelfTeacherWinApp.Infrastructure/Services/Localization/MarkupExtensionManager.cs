@@ -1,7 +1,6 @@
-﻿using SelfTeacher.WinApp.Domain.Services.Localization;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace SelfTeacher.WinApp.Services.Localization
+namespace SelfTeacher.WinApp.Infrastructure.Services.Localization
 {
 
     /// <summary>

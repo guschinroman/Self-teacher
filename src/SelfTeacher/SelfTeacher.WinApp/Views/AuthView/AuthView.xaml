@@ -8,6 +8,7 @@
         <StackPanel>
             <ContentControl prism:RegionManager.RegionName="AuthForm" />
             <ContentControl prism:RegionManager.RegionName="SocialButtons" />
+            <TextBlock Text="{Binding Test}"/>
         </StackPanel>
     </Grid>
 </UserControl>

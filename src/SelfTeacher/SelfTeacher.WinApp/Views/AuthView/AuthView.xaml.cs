@@ -25,7 +25,7 @@ namespace SelfTeacher.WinApp.Views.AuthView
             {
                 throw new ArgumentException(nameof(_regionManager));
             }
-            _regionManager.RegisterViewWithRegion("AuthForm", typeof(AuthForm));
+            _regionManager.RegisterViewWithRegion("AuthForm", typeof(AuthFormView));
             _regionManager.RegisterViewWithRegion("SocialButtons", typeof(SocialButtons));
         }
     }

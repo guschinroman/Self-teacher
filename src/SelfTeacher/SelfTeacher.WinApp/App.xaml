@@ -16,8 +16,11 @@
                 <ResourceDictionary Source="Assets/Styles/AuthPage/Buttons.xaml"/>
                 <ResourceDictionary Source="Assets/Styles/AuthPage/Fonts.xaml"/>
                 <ResourceDictionary Source="Assets/Styles/AuthPage/Colors.xaml"/>
-                <ResourceDictionary Source="Assets/Styles/AuthPage/Texts.xaml"/> 
-                
+                <ResourceDictionary Source="Assets/Styles/AuthPage/Texts.xaml"/>
+
+
+                <ResourceDictionary Source="Assets/Text/en/Common.xaml"/>
+                <ResourceDictionary Source="Assets/Text/ru/Common.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

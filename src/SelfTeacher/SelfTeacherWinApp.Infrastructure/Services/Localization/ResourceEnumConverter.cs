@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Resources;
 using System.Windows.Data;
 
-namespace SelfTeacher.WinApp.Services.Localization
+namespace SelfTeacher.WinApp.Infrastructure.Services.Localization
 {    /// <summary>
     /// Defines a type converter for enum values that converts enum values to 
     /// and from string representations using resources
