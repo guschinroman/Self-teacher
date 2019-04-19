@@ -1,5 +1,8 @@
 ﻿using Prism.Mvvm;
+using SelfTeacher.WinApp.Command.WpfCommand;
+using SelfTeacher.WinApp.Services;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SelfTeacher.WinApp.ViewModels
 {
@@ -22,21 +25,36 @@ namespace SelfTeacher.WinApp.ViewModels
         #endregion
 
         #region Public Properties
-        public string Title
-        {
-            get { return _title; }
-            set { SetProperty(ref _title, value); }
-        }
 
-        public string Name
-        {
-            get { return _name; }
-            set { SetProperty(ref _name, value); }
-        }
+        /// <summary>
+        /// The smallest width the window can go to
+        /// </summary>
+        public double WindowMinimumWidth { get; set; } = 400;
+
+        /// <summary>
+        /// The smallest height the window can go to
+        /// </summary>
+        public double WindowMinimumHeight { get; set; } = 400;
+
+
 
         public int ResizeBorder { get; set; } = 6;
 
+        /// <summary>
+        /// the size of the border around the window? taking into account the outer margin
+        /// </summary>
         public Thickness ResizeBorderThickness
+        {
+            get
+            {
+                return new Thickness(ResizeBorder + OuterMarginSize);
+            }
+        }
+
+        /// <summary>
+        /// The padding content of the main window
+        /// </summary>
+        public Thickness InnerContentPadding
         {
             get
             {
@@ -66,7 +84,7 @@ namespace SelfTeacher.WinApp.ViewModels
         {
             get
             {
-                return new Thickness(ResizeBorder);
+                return new Thickness(OuterMarginSize);
             }
         }
 
@@ -84,6 +102,52 @@ namespace SelfTeacher.WinApp.ViewModels
                 mOuterMarginSize = value;
             }
         }
+
+        /// <summary>
+        /// Thr radius of the edges of the window
+        /// </summary>
+        public CornerRadius WindowsCornerRadius
+        {
+            get
+            {
+                return new CornerRadius(WindowsRadius);
+            }
+        }
+
+        public int TitleHeight { get; set; } = 42;
+
+        public GridLength TitleHeightGridLength
+        {
+            get
+            {
+                return new GridLength(TitleHeight);
+            }
+        }
+
+        #endregion
+
+        #region Commands
+
+        /// <summary>
+        /// The command to minimize the window
+        /// </summary>
+        public ICommand MinimizeCommand { get; set; }
+
+        /// <summary>
+        /// The Maximize window Command
+        /// </summary>
+        public ICommand MaximizeCommand { get; set; }
+
+        /// <summary>
+        /// The close windows command
+        /// </summary>
+        public ICommand CloseCommand { get; set; }
+
+        /// <summary>
+        /// The command to show menu
+        /// </summary>
+        public ICommand MenuCommand { get; set; }
+
         #endregion
 
         #region constructor
@@ -93,8 +157,37 @@ namespace SelfTeacher.WinApp.ViewModels
             //Listen out for window resizing
             _window.StateChanged += (sender, e) =>
             {
+                //fire off event for all properties tha are affected by a resize
+                RaisePropertyChanged(nameof(ResizeBorderThickness));
+                RaisePropertyChanged(nameof(OuterMarginSize));
+                RaisePropertyChanged(nameof(OuterMarginSizeThickness));
+                RaisePropertyChanged(nameof(WindowsRadius));
+                RaisePropertyChanged(nameof(WindowsCornerRadius));
 
             };
+
+            //Create command
+            MinimizeCommand = new RelayCommand(() => _window.WindowState = WindowState.Minimized);
+            MaximizeCommand = new RelayCommand(() => _window.WindowState ^= WindowState.Maximized);
+            CloseCommand = new RelayCommand(() => _window.Close());
+            MenuCommand = new RelayCommand(() => SystemCommands.ShowSystemMenu(_window, GetMousePosition()));
+        }
+
+        #endregion
+
+
+        #region Private helpers
+        /// <summary>
+        /// Gets the current mouse position on the screen
+        /// </summary>
+        /// <returns></returns>
+        private Point GetMousePosition()
+        {
+            // Position of the mouse relative to the window
+            var position = Mouse.GetPosition(_window);
+
+            // Add the window position so its a "ToScreen"
+            return new Point(position.X + _window.Left, position.Y + _window.Top);
         }
         #endregion
     }

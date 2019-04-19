@@ -94,6 +94,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Resource Include="Assets\Images\Logo\logo-small.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="Assets\Text\en\Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -124,6 +127,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Command\WpfCommand\RelayCommand.cs" />
     <Compile Include="PE\LoginPe.cs" />
     <Compile Include="Services\Settings\Settings\WinAppSettingsService.cs" />
     <Compile Include="ViewModels\Auth\AuthFormViewModel.cs" />
@@ -201,11 +205,11 @@
     </PackageReference>
     <PackageReference Include="Prism.DryIoc" Version="7.1.0.431" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Command\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Logo\logo-default.png" />
+    <Resource Include="Assets\Images\Logo\logo-default.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SelfTeacher.WinApp.Domain\SelfTeacher.WinApp.Domain.csproj">
