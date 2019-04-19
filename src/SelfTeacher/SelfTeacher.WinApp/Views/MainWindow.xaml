@@ -5,13 +5,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525"
-        Icon="../Assets/Images/Logo/logo-default.png">
-    <Grid>
-        <StackPanel>
-            <ContentControl prism:RegionManager.RegionName="AuthRegion" />
-            <ContentControl prism:RegionManager.RegionName="RegistrationRegion" />
-            <ContentControl prism:RegionManager.RegionName="MainRegison" />
-        </StackPanel>
-    </Grid>
+        Title="{Binding Title}" Height="600" Width="900"
+        Icon="../Assets/Images/Logo/logo-default.png"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        x:Name="AppWindow"
+        WindowStartupLocation="CenterScreen">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome
+            ResizeBorderThickness="{Binding ResizeBorderThickness}"
+            />
+    </WindowChrome.WindowChrome>
+
 </Window>

@@ -124,6 +124,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="PE\LoginPe.cs" />
     <Compile Include="Services\Settings\Settings\WinAppSettingsService.cs" />
     <Compile Include="ViewModels\Auth\AuthFormViewModel.cs" />
     <Compile Include="ViewModels\Auth\AuthViewViewModel.cs" />

@@ -14,7 +14,7 @@ namespace SelfTeacher.WinApp.Views
         public MainWindow(IRegionManager regionManager)
         {
             InitializeComponent();
-            this._regionManager = regionManager;
+            _regionManager = regionManager;
 
             if(_regionManager == null)
             {

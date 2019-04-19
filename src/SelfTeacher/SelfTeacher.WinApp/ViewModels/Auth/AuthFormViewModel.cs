@@ -1,4 +1,6 @@
 ﻿using Prism.Mvvm;
+using SelfTeacher.WinApp.PE;
+using System.Windows;
 
 namespace SelfTeacher.WinApp.ViewModels
 {
@@ -9,8 +11,8 @@ namespace SelfTeacher.WinApp.ViewModels
         #endregion
 
         #region Public Properties
-
-        public string Test { get; set; } = "My string";
+        
+        public LoginPe LoginPe { get; set; }
 
         #endregion
 
@@ -22,6 +24,15 @@ namespace SelfTeacher.WinApp.ViewModels
         {
             
         }
+        #endregion
+
+        #region Public Methods
+
+        #endregion
+
+        #region Private Methods
+
+
         #endregion
     }
 }
