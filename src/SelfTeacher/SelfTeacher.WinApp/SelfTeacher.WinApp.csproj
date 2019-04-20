@@ -130,6 +130,7 @@
     <Compile Include="Command\WpfCommand\RelayCommand.cs" />
     <Compile Include="PE\LoginPe.cs" />
     <Compile Include="Services\Settings\Settings\WinAppSettingsService.cs" />
+    <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ViewModels\Auth\AuthFormViewModel.cs" />
     <Compile Include="ViewModels\Auth\AuthViewViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

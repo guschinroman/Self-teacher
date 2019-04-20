@@ -38,7 +38,13 @@ namespace SelfTeacher.WinApp.ViewModels
 
 
 
-        public int ResizeBorder { get; set; } = 6;
+        public int ResizeBorder
+        {
+            get
+            {
+                return 0;
+            }
+        }
 
         /// <summary>
         /// the size of the border around the window? taking into account the outer margin
@@ -54,13 +60,7 @@ namespace SelfTeacher.WinApp.ViewModels
         /// <summary>
         /// The padding content of the main window
         /// </summary>
-        public Thickness InnerContentPadding
-        {
-            get
-            {
-                return new Thickness(ResizeBorder);
-            }
-        }
+        public Thickness InnerContentPadding { get; set; } = new Thickness(0);
 
         /// <summary>
         /// The margin in from to allow for drop shadow

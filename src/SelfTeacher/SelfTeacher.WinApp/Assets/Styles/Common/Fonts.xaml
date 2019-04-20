@@ -1,9 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:SelfTeacher.WinApp.Assets.Styles">
+                    xmlns:local="clr-namespace:SelfTeacher.WinApp.Assets.Styles"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <FontFamily x:Key="LatoRegular">pack://application;,,,/Assets/Fonts/#Lato Regular</FontFamily>
     <FontFamily x:Key="LatoThin">pack://application;,,,/Assets/Fonts/#Lato Thin</FontFamily>
+    <FontFamily x:Key="LatoBold">pack://application;,,,/Assets/Fonts/#Lato Bold</FontFamily>
+
 
 
     <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
@@ -18,5 +21,11 @@
     <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseStyle}" />
     <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
     <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource BaseStyle}" />
+
+
+    <system:Double x:Key="FontSizeRegilar">20</system:Double>
+    <system:Double x:Key="FontSizeSmall">14</system:Double>
+    <system:Double x:Key="FontSizeLarge">30</system:Double>
+
 
 </ResourceDictionary>
