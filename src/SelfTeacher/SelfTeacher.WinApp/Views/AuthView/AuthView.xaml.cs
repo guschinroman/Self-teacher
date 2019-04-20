@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using DryIoc;
+using Prism.Regions;
+using System;
+using System.Windows.Controls;
 
 namespace SelfTeacher.WinApp.Views.AuthView
 {
@@ -7,9 +10,23 @@ namespace SelfTeacher.WinApp.Views.AuthView
     /// </summary>
     public partial class AuthView : UserControl
     {
-        public AuthView()
+        private readonly IRegionManager _regionManager;
+        private readonly IContainer _dryIocContainer;
+
+        public AuthView(
+            IRegionManager regionManager,
+            IContainer dryIocContainer)
         {
             InitializeComponent();
+            this._regionManager = regionManager;
+            this._dryIocContainer = dryIocContainer;
+
+            if(_regionManager == null)
+            {
+                throw new ArgumentException(nameof(_regionManager));
+            }
+            _regionManager.RegisterViewWithRegion("AuthForm", typeof(AuthFormView));
+            _regionManager.RegisterViewWithRegion("SocialButtons", typeof(SocialButtons));
         }
     }
 }

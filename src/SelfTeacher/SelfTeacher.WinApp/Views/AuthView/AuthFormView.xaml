@@ -1,14 +1,8 @@
-﻿<UserControl x:Class="SelfTeacher.WinApp.Views.AuthView.AuthView"
+﻿<UserControl x:Class="SelfTeacher.WinApp.Views.AuthView.AuthFormView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-
-        <StackPanel>
-            <ContentControl prism:RegionManager.RegionName="AuthForm" />
-            <ContentControl prism:RegionManager.RegionName="SocialButtons" />
-            <TextBlock Text="{Binding Test}"/>
-        </StackPanel>
     </Grid>
 </UserControl>
