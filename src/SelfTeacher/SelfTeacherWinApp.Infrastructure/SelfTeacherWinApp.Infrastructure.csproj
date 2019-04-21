@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EnumBindingSourceExtension.cs" />
     <Compile Include="Services\Localization\LocalizationService.cs" />
     <Compile Include="Services\Localization\ManagedMarkupExtension.cs" />
     <Compile Include="Services\Localization\MarkupExtensionManager.cs" />

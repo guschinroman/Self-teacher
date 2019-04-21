@@ -3,6 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
-    </Grid>
+
+    <StackPanel>
+
+        <!-- sign up header -->
+        <TextBlock Text="{Resx AuthForm.SignUp, ResxName=AuthForm}"
+            FontSize="{StaticResource FontSizeLarge}"
+            FontFamily="{StaticResource LatoRegular}"
+            Foreground="{StaticResource TextWhiteBrush}" />
+
+        <!-- Sign up subtext -->
+        <TextBlock Text="{Resx AuthForm.MainText, ResxName=AuthForm}"
+            FontSize="{StaticResource FontSizeRegilar}"
+            Foreground="{StaticResource ForegroundDarkBrush}"
+            Margin="0 0 0 20"/>
+
+        <!-- Email -->
+        <TextBox Style="{StaticResource TextBoxPlaceholder}" Tag="{Resx AuthForm.AuthEmailPlaceholder, ResxName=AuthForm}" />
+
+        <!-- Password-->
+        <TextBox Style="{StaticResource TextBoxPlaceholder}"  Tag="{Resx AuthForm.AuthPasswordPlaceholder, ResxName=AuthForm}" Margin="0 0 0 30" />
+
+
+        <!-- Login button -->
+        <Button  Content="{Resx AuthForm.LoginText, ResxName=AuthForm}"
+                HorizontalAlignment="Center"
+                FontFamily="{StaticResource LatoBold}" />
+
+
+        <Button Style="{StaticResource TextButton}" Content="{Resx AuthForm.GoToRegisterText, ResxName=AuthForm}" HorizontalAlignment="Center" />
+
+    </StackPanel>
+
 </UserControl>

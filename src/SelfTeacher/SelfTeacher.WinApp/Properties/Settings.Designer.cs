@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SelfTeacherWinApp.Domain.Entities;
+
 namespace SelfTeacher.WinApp.Properties {
     
     
@@ -26,9 +28,9 @@ namespace SelfTeacher.WinApp.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Russian")]
-        public global::ELanguage Language {
+        public ELanguage Language {
             get {
-                return ((global::ELanguage)(this["Language"]));
+                return ((ELanguage)(this["Language"]));
             }
             set {
                 this["Language"] = value;

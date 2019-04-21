@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
+    <!-- Auth form -->
+    <system:String x:Key="AuthForm.SignUp">Sigh in</system:String>
+    <system:String x:Key="AuthForm.MainText">Let's teach youself!</system:String>
+    <system:String x:Key="AuthForm.LoginText">Login</system:String>
+    <system:String x:Key="AuthForm.GoToRegisterText">Sign up</system:String>
+    <system:String x:Key="AuthForm.AuthEmailPlaceholder">Email</system:String>
+    <system:String x:Key="AuthForm.AuthPasswordPlaceholder">Password</system:String>
+</ResourceDictionary>

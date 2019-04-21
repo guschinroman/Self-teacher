@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="SelfTeacher.WinApp.Views.Common.LanguageElementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SelfTeacher.WinApp.Views.Common"
+            xmlns:enummarkups="clr-namespace:SelfTeacherWinApp.Infrastructure.Services;assembly=SelfTeacherWinApp.Infrastructure"
+            xmlns:enums="clr-namespace:SelfTeacherWinApp.Domain.Entities;assembly=SelfTeacher.WinApp.Domain"
+             mc:Ignorable="d"
+             xmlns:prism="http://prismlibrary.com/"             
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
+    <Grid>
+
+
+        <ComboBox Grid.Column="2"
+            Name="LanguageBox"
+            Margin="2 2 2 2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            SelectedIndex="{Binding SelectIndex}"
+            ItemsSource="{Binding Source={enummarkups:EnumBindingSource {x:Type enums:ELanguage}}}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding LanguageChanged}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ComboBox>
+    </Grid>
+</UserControl>

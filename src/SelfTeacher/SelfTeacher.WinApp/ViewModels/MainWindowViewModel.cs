@@ -1,6 +1,9 @@
 ﻿using Prism.Mvvm;
 using SelfTeacher.WinApp.Command.WpfCommand;
+using SelfTeacher.WinApp.Domain.Service;
 using SelfTeacher.WinApp.Services;
+using SelfTeacherWinApp.Domain.Entities;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 
@@ -22,6 +25,7 @@ namespace SelfTeacher.WinApp.ViewModels
         /// Thr radius of the edges of the window
         /// </summary>
         private int mWindowRadius = 10;
+        private readonly ILocalizationService _localizationService;
         #endregion
 
         #region Public Properties
@@ -30,6 +34,12 @@ namespace SelfTeacher.WinApp.ViewModels
         /// The smallest width the window can go to
         /// </summary>
         public double WindowMinimumWidth { get; set; } = 400;
+
+
+        /// <summary>
+        /// The selected language on view
+        /// </summary>
+        public int Language { get; set; } = -1;
 
         /// <summary>
         /// The smallest height the window can go to

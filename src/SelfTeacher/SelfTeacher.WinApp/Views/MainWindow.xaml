@@ -39,7 +39,6 @@
                                 
                                 <!-- The main windows content -->
                                 <Grid>
-                                    
                                     <!-- Corner clipping -->
                                     <Grid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Container}" />
@@ -87,9 +86,11 @@
                                     </Grid>
                                                                         
                                     <!-- PageContent -->
-
                                     <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
-                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                        <StackPanel>
+                                            <ContentControl Height="45" prism:RegionManager.RegionName="LanguageChangeRegion"/>
+                                            <ContentControl Height="auto" prism:RegionManager.RegionName="AuthRegion" />
+                                        </StackPanel>
                                     </Border>
                                 </Grid>
                             </Grid>
