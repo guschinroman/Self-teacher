@@ -10,14 +10,32 @@
              xmlns:prism="http://prismlibrary.com/"             
              prism:ViewModelLocator.AutoWireViewModel="True"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity">
-    <Grid>
-
-
-        <ComboBox Grid.Column="2"
-            Name="LanguageBox"
-            Margin="2 2 2 2"
+    
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <!-- Title bar-->
+            <RowDefinition Height="42"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!-- Title bar -->
+        <Grid.ColumnDefinitions>
+            <!-- Title -->
+            <ColumnDefinition Width="*" />
+            <!-- Windows Button-->
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TextBlock 
             HorizontalAlignment="Center"
-            VerticalAlignment="Center"
+             VerticalAlignment="Center"
+            FontFamily="{StaticResource LatoRegular}"
+            FontSize="{StaticResource FontSizeSmall}"
+            Foreground="{StaticResource ForegroundDarkBrush}"
+            Grid.Column="0"
+            Text="{Resx Common.CopyRight, ResxName=Common}" />
+        
+        <ComboBox Grid.Column="1"
+            Margin="4 4 4 4"
+            HorizontalAlignment="Right"
+             VerticalAlignment="Center"
             SelectedIndex="{Binding SelectIndex}"
             ItemsSource="{Binding Source={enummarkups:EnumBindingSource {x:Type enums:ELanguage}}}">
             <i:Interaction.Triggers>
@@ -26,5 +44,6 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ComboBox>
+        
     </Grid>
 </UserControl>

@@ -4,5 +4,6 @@
     <!-- Common -->
     <system:String x:Key="Common.Header">Self-Teacher</system:String>
     <system:String x:Key="Common.Welcome">Welcome</system:String>
+    <system:String x:Key="Common.CopyRight">Self-Teacher, 2019</system:String>
     
 </ResourceDictionary>

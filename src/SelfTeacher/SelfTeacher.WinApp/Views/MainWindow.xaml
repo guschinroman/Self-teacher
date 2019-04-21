@@ -87,10 +87,14 @@
                                                                         
                                     <!-- PageContent -->
                                     <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
-                                        <StackPanel>
-                                            <ContentControl Height="45" prism:RegionManager.RegionName="LanguageChangeRegion"/>
-                                            <ContentControl Height="auto" prism:RegionManager.RegionName="AuthRegion" />
-                                        </StackPanel>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <ContentControl Grid.Row="0" prism:RegionManager.RegionName="AuthRegion" />
+                                            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="LanguageChangeRegion"/>
+                                        </Grid>
                                     </Border>
                                 </Grid>
                             </Grid>
