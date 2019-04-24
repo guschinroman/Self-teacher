@@ -97,6 +97,7 @@
     <Resource Include="Assets\Images\Logo\logo-small.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Assets\Images\Background\logo-background.jpg" />
     <Content Include="Assets\Text\en\Common.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -107,6 +108,26 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="Assets\Text\en\RegisterForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Assets\Text\en\AuthForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Assets\Text\ru\RegisterForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Assets\Text\ru\AuthForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
     <Page Include="Views\AuthView\AuthFormView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -115,7 +136,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AuthView\RegisterFormView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AuthView\SocialButtons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\LanguageElementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -130,18 +159,27 @@
     <Compile Include="Command\WpfCommand\RelayCommand.cs" />
     <Compile Include="PE\LoginPe.cs" />
     <Compile Include="Services\Settings\Settings\WinAppSettingsService.cs" />
+    <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ViewModels\Auth\AuthFormViewModel.cs" />
     <Compile Include="ViewModels\Auth\AuthViewViewModel.cs" />
+    <Compile Include="ViewModels\Common\LanguageElementViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Auth\SocialButtonsViewModel.cs" />
+    <Compile Include="ViewModels\Auth\RegisterFormViewViewModel.cs" />
     <Compile Include="Views\AuthView\AuthFormView.xaml.cs">
       <DependentUpon>AuthFormView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AuthView\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AuthView\RegisterFormView.xaml.cs">
+      <DependentUpon>RegisterFormView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AuthView\SocialButtons.xaml.cs">
       <DependentUpon>SocialButtons.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\LanguageElementView.xaml.cs">
+      <DependentUpon>LanguageElementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

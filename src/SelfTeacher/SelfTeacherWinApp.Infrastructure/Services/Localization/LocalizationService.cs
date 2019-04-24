@@ -8,6 +8,7 @@ using NLog;
 using SelfTeacher.WinApp.Domain.Service;
 using SelfTeacher.WinApp.Domain.Services;
 using SelfTeacher.WinApp.Domain.Services.Settings;
+using SelfTeacherWinApp.Domain.Entities;
 
 namespace SelfTeacher.WinApp.Infrastructure.Services.Localization
 {
@@ -54,6 +55,10 @@ namespace SelfTeacher.WinApp.Infrastructure.Services.Localization
         {
             this.LoadDictionary((int)ELanguage.Russian, "Common", "ru\\Common.xaml");
             this.LoadDictionary((int)ELanguage.English, "Common", "en\\Common.xaml");
+            this.LoadDictionary((int)ELanguage.Russian, "AuthForm", "ru\\AuthForm.xaml");
+            this.LoadDictionary((int)ELanguage.English, "AuthForm", "en\\AuthForm.xaml");
+            this.LoadDictionary((int)ELanguage.Russian, "RegisterForm", "ru\\RegisterForm.xaml");
+            this.LoadDictionary((int)ELanguage.English, "RegisterForm", "en\\RegisterForm.xaml");
         }
 
         public CultureInfo UICulture
@@ -66,6 +71,7 @@ namespace SelfTeacher.WinApp.Infrastructure.Services.Localization
                     _uiCulture = value;
                     Thread.CurrentThread.CurrentUICulture = value;
                     Thread.CurrentThread.CurrentCulture = value;
+                    _uiCulture = value;
                     ResxExtension.UpdateAllTargets();
 
                     if (UICultureChanged != null)

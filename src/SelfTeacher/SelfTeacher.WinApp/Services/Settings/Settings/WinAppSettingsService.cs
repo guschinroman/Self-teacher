@@ -1,4 +1,5 @@
 ﻿using SelfTeacher.WinApp.Domain.Services.Settings;
+using SelfTeacherWinApp.Domain.Entities;
 
 namespace SelfTeacher.WinApp.Services.Settings
 {

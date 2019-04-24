@@ -24,7 +24,7 @@ namespace SelfTeacher.WinApp
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<ILocalizationService, LocalizationService>();
+            containerRegistry.RegisterSingleton<ILocalizationService, LocalizationService>();
             containerRegistry.Register<IWinAppSettingService, WinAppSettingsService>();
             containerRegistry.RegisterInstance(typeof(ILogger), NLog.LogManager.GetCurrentClassLogger());
 

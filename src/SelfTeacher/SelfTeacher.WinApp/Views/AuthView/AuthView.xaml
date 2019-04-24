@@ -1,14 +1,36 @@
 ﻿<UserControl x:Class="SelfTeacher.WinApp.Views.AuthView.AuthView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:prism="http://prismlibrary.com/"  
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="700"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
 
-        <StackPanel>
-            <ContentControl prism:RegionManager.RegionName="AuthForm" />
-            <ContentControl prism:RegionManager.RegionName="SocialButtons" />
-            <TextBlock Text="{Binding Test}"/>
-        </StackPanel>
-    </Grid>
+    <Border Background="{StaticResource HeaderBlueBrush}">
+        <Grid>
+            <!-- Vlue backgrount image -->
+            <Grid.Background>
+                <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Viewport="0 0 500 500" ImageSource="/Assets/Images/Background/logo-background.jpg" />
+            </Grid.Background>
+            <!-- Main scroll view content -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.TextAlignment="Center">
+                    <!-- Login main content white box -->
+                    <Border Background="{StaticResource BackgroundBlueBrush}"
+                            CornerRadius="10"
+                            Padding="15 50 15 15"
+                            Width="400"
+                            Margin="50 50 50 0">
+                        <StackPanel>
+                            <ContentControl prism:RegionManager.RegionName="AuthForm" />
+                            <ContentControl prism:RegionManager.RegionName="RegisterForm" />
+                            <ContentControl prism:RegionManager.RegionName="SocialButtons" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
 </UserControl>

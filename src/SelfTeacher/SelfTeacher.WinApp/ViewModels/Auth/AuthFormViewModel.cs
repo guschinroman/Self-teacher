@@ -1,4 +1,6 @@
-﻿using Prism.Mvvm;
+﻿using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Regions;
 using SelfTeacher.WinApp.PE;
 using System.Windows;
 
@@ -8,11 +10,14 @@ namespace SelfTeacher.WinApp.ViewModels
     {
         #region Private member
 
+        private readonly IRegionManager _regionManager;
         #endregion
 
         #region Public Properties
-        
+
         public LoginPe LoginPe { get; set; }
+
+        public DelegateCommand GoToRegistrationCommand { get; }
 
         #endregion
 
@@ -20,9 +25,10 @@ namespace SelfTeacher.WinApp.ViewModels
         /// <summary>
         /// Default constructor
         /// </summary>
-        public AuthFormViewModel()
+        public AuthFormViewModel(IRegionManager regionManager)
         {
-            
+            GoToRegistrationCommand = new DelegateCommand(goToRegistrationCommand);
+            _regionManager = regionManager;
         }
         #endregion
 
@@ -31,6 +37,11 @@ namespace SelfTeacher.WinApp.ViewModels
         #endregion
 
         #region Private Methods
+
+        private void goToRegistrationCommand()
+        {
+            _regionManager.RequestNavigate()
+        }
 
 
         #endregion

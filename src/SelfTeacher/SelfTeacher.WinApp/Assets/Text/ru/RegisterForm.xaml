@@ -2,9 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SelfTeacher.WinApp.Assets.Text.ru"
                     xmlns:system="clr-namespace:System;assembly=mscorlib">
-    <!-- Common -->
-    <system:String x:Key="Common.Header">Self-Teacher</system:String>
-    <system:String x:Key="Common.Welcome">Добро пожаловать</system:String>
-    <system:String x:Key="Common.CopyRight">Self-Teacher, 2019</system:String>
-
+    
+    <!-- Register form -->
+    <system:String x:Key="RegisterForm.SignIn">Регистрация</system:String>
+    <system:String x:Key="RegisterForm.GoBack">Назад</system:String>
+    
 </ResourceDictionary>

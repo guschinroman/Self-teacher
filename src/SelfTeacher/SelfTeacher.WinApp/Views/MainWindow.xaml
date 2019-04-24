@@ -39,7 +39,6 @@
                                 
                                 <!-- The main windows content -->
                                 <Grid>
-                                    
                                     <!-- Corner clipping -->
                                     <Grid.OpacityMask>
                                         <VisualBrush Visual="{Binding ElementName=Container}" />
@@ -48,9 +47,6 @@
                                     <Grid.RowDefinitions>
                                         <!-- Title bar-->
                                         <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}"></RowDefinition>
-                                        <!-- Drop shadow-->
-                                        <RowDefinition Height="Auto" />
-                                        
                                         <!--Window content-->
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
@@ -71,8 +67,14 @@
                                         </Button>
                                         
                                         <!-- Title-->
-                                        <Viewbox  Grid.Column="1" Margin="0">
-                                            <TextBlock Style="{StaticResource HeaderText}" Text="{Resx Common.Header, ResxName=Common}" />
+                                        <Viewbox  Grid.Column="1" Grid.ColumnSpan="3" Margin="5">
+                                            <StackPanel>
+                                                <TextBlock FontFamily="{StaticResource LatoRegular}" FontSize="{StaticResource FontSizeRegilar}" Margin="0, 0, 0, -5">
+                                                    <Run Text="S" Foreground="{StaticResource HeaderOrangeBrush}" /><Run Text="E" Foreground="{StaticResource HeaderBlueBrush}" /><Run Text="L" Foreground="{StaticResource HeaderRedBrush}" /><Run Text="F" Foreground="{StaticResource HeaderGreenBrush}" /><Run Text="-" Foreground="{StaticResource HeaderOrangeBrush}" /><Run Text="T" Foreground="{StaticResource HeaderBlueBrush}" /><Run Text="E" Foreground="{StaticResource HeaderRedBrush}" /><Run Text="A" Foreground="{StaticResource HeaderGreenBrush}" /><Run Text="C" Foreground="{StaticResource HeaderOrangeBrush}" /><Run Text="H" Foreground="{StaticResource HeaderBlueBrush}" /><Run Text="E" Foreground="{StaticResource HeaderRedBrush}" /><Run Text="R" Foreground="{StaticResource HeaderGreenBrush}" />
+                                                </TextBlock>
+                                                <TextBlock FontSize="{StaticResource FontSizeSmall}" Text="by RG" Foreground="{StaticResource ForegroundDarkBrush}" TextAlignment="Center" />
+                                            </StackPanel>
+                                            <!--<TextBlock Style="{StaticResource HeaderText}" Text="{Resx Common.Header, ResxName=Common}" />-->
                                         </Viewbox>
                                         
                                         <!-- Windows buttons -->
@@ -82,25 +84,17 @@
                                             <Button Command="{Binding CloseCommand}" Style="{StaticResource WindowCloseButton}" Content="X" />
                                         </StackPanel>
                                     </Grid>
-                                    
-                                    <!-- Drop shadow -->
-
-                                    <Border Grid.Row="1" Height="6" BorderThickness="0 0.2 0 0">
-                                        <!-- Underline -->
-                                        <Border.BorderBrush>
-                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1, 0">
-                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="0.0" />
-                                                <GradientStop Color="{StaticResource ForegroundMain}" Offset="0.5" />
-                                                <GradientStop Color="{StaticResource ForegroundLight}" Offset="1.0" />
-                                            </LinearGradientBrush>
-                                        </Border.BorderBrush>
-                                        
-                                    </Border>
-                                    
+                                                                        
                                     <!-- PageContent -->
-
-                                    <Border Grid.Row="2" Padding="{Binding InnerContentPadding}">
-                                        <ContentPresenter Content="{TemplateBinding Content}" />
+                                    <Border Grid.Row="1" Padding="{Binding InnerContentPadding}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="{Binding TitleHeightGridLength, FallbackValue=42}"></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <ContentControl Grid.Row="0" prism:RegionManager.RegionName="AuthRegion" />
+                                            <ContentControl Grid.Row="1" prism:RegionManager.RegionName="LanguageChangeRegion"/>
+                                        </Grid>
                                     </Border>
                                 </Grid>
                             </Grid>
@@ -121,5 +115,6 @@
     </WindowChrome.WindowChrome>
 
     <Grid Background="{StaticResource ForegroundLightBrush}">
+        <ContentControl prism:RegionManager.RegionName="AuthRegion" />
     </Grid>
 </Window>

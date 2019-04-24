@@ -1,7 +1,23 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:SelfTeacher.WinApp.Assets.Styles">
+
+
+    <ResourceDictionary.MergedDictionaries>
+            <!-- Order is important -->
+        <ResourceDictionary Source="../Common/Buttons.xaml"/>
+        <ResourceDictionary Source="../Common/Fonts.xaml"/>
+        <ResourceDictionary Source="../Common/Texts.xaml"/>
+        <ResourceDictionary Source="../Common/Colors.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <Color x:Key="TextWhite">#ffffff</Color>
+    <SolidColorBrush x:Key="TextWhiteBrush" Color="{StaticResource TextWhite}" />
+
+    <Color x:Key="BackgroundBlue">#3099c5</Color>
+    <SolidColorBrush x:Key="BackgroundBlueBrush" Color="{StaticResource BackgroundBlue}" />
     
-    
-    
+    <Color x:Key="ButtonHoverOrange">#ff9800</Color>
+    <SolidColorBrush x:Key="ButtonHoverOrangeBrush" Color="{StaticResource ButtonHoverOrange}" />
+
 </ResourceDictionary>

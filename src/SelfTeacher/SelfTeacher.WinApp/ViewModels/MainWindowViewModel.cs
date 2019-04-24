@@ -1,6 +1,9 @@
 ﻿using Prism.Mvvm;
 using SelfTeacher.WinApp.Command.WpfCommand;
+using SelfTeacher.WinApp.Domain.Service;
 using SelfTeacher.WinApp.Services;
+using SelfTeacherWinApp.Domain.Entities;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 
@@ -22,6 +25,7 @@ namespace SelfTeacher.WinApp.ViewModels
         /// Thr radius of the edges of the window
         /// </summary>
         private int mWindowRadius = 10;
+        private readonly ILocalizationService _localizationService;
         #endregion
 
         #region Public Properties
@@ -31,6 +35,12 @@ namespace SelfTeacher.WinApp.ViewModels
         /// </summary>
         public double WindowMinimumWidth { get; set; } = 400;
 
+
+        /// <summary>
+        /// The selected language on view
+        /// </summary>
+        public int Language { get; set; } = -1;
+
         /// <summary>
         /// The smallest height the window can go to
         /// </summary>
@@ -38,7 +48,13 @@ namespace SelfTeacher.WinApp.ViewModels
 
 
 
-        public int ResizeBorder { get; set; } = 6;
+        public int ResizeBorder
+        {
+            get
+            {
+                return 0;
+            }
+        }
 
         /// <summary>
         /// the size of the border around the window? taking into account the outer margin
@@ -54,13 +70,7 @@ namespace SelfTeacher.WinApp.ViewModels
         /// <summary>
         /// The padding content of the main window
         /// </summary>
-        public Thickness InnerContentPadding
-        {
-            get
-            {
-                return new Thickness(ResizeBorder);
-            }
-        }
+        public Thickness InnerContentPadding { get; set; } = new Thickness(0);
 
         /// <summary>
         /// The margin in from to allow for drop shadow
