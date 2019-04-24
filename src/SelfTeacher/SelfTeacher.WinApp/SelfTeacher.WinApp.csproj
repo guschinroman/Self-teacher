@@ -108,7 +108,17 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Page Include="Assets\Text\en\RegisterForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
     <Page Include="Assets\Text\en\AuthForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Assets\Text\ru\RegisterForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -123,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AuthView\AuthView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AuthView\RegisterFormView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -151,11 +165,15 @@
     <Compile Include="ViewModels\Common\LanguageElementViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\Auth\SocialButtonsViewModel.cs" />
+    <Compile Include="ViewModels\Auth\RegisterFormViewViewModel.cs" />
     <Compile Include="Views\AuthView\AuthFormView.xaml.cs">
       <DependentUpon>AuthFormView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AuthView\AuthView.xaml.cs">
       <DependentUpon>AuthView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AuthView\RegisterFormView.xaml.cs">
+      <DependentUpon>RegisterFormView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AuthView\SocialButtons.xaml.cs">
       <DependentUpon>SocialButtons.xaml</DependentUpon>

@@ -7,6 +7,7 @@
     <system:String x:Key="AuthForm.MainText">Попробуй научить себя сам!</system:String>
     <system:String x:Key="AuthForm.LoginText">Войти</system:String>
     <system:String x:Key="AuthForm.GoToRegisterText">Зарегистрироваться!</system:String>
+    <system:String x:Key="AuthForm.ForgotPassword">Забыли пароль?</system:String>
     <system:String x:Key="AuthForm.AuthEmailPlaceholder">Email</system:String>
     <system:String x:Key="AuthForm.AuthPasswordPlaceholder">Пароль</system:String>
 </ResourceDictionary>

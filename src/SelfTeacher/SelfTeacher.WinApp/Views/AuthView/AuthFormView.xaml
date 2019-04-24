@@ -33,6 +33,8 @@
 
         <Button Style="{StaticResource TextButton}" Content="{Resx AuthForm.GoToRegisterText, ResxName=AuthForm}" HorizontalAlignment="Center" />
 
+        <Button Style="{StaticResource TextButton}" Content="{Resx AuthForm.ForgotPassword, ResxName=AuthForm}" HorizontalAlignment="Center" />
+
     </StackPanel>
 
 </UserControl>

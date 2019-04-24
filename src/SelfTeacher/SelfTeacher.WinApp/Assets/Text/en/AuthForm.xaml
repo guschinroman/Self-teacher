@@ -6,6 +6,7 @@
     <system:String x:Key="AuthForm.MainText">Let's teach youself!</system:String>
     <system:String x:Key="AuthForm.LoginText">Login</system:String>
     <system:String x:Key="AuthForm.GoToRegisterText">Sign up</system:String>
+    <system:String x:Key="AuthForm.ForgotPassword">Forgot password?</system:String>
     <system:String x:Key="AuthForm.AuthEmailPlaceholder">Email</system:String>
     <system:String x:Key="AuthForm.AuthPasswordPlaceholder">Password</system:String>
 </ResourceDictionary>
