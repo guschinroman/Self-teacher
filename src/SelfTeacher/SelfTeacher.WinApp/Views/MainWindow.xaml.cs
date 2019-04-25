@@ -1,9 +1,4 @@
-﻿using Prism.Regions;
-using SelfTeacher.WinApp.Domain.Service;
-using SelfTeacher.WinApp.Views.Common;
-using SelfTeacherWinApp.Domain.Entities;
-using System;
-using System.Globalization;
+﻿using SelfTeacher.WinApp.Domain.Services;
 using System.Windows;
 
 namespace SelfTeacher.WinApp.Views
@@ -13,18 +8,14 @@ namespace SelfTeacher.WinApp.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IRegionManager _regionManager;
+        private readonly IInitManager _initManager;
 
-        public MainWindow(IRegionManager regionManager)
+        public MainWindow(IInitManager initManager)
         {
             InitializeComponent();
-            _regionManager = regionManager;
-            if (_regionManager == null)
-            {
-                throw new ArgumentNullException(nameof(_regionManager));
-            }
-            _regionManager.RegisterViewWithRegion("LanguageChangeRegion", typeof(LanguageElementView));
-            _regionManager.RegisterViewWithRegion("AuthRegion", typeof(AuthView.AuthView));
+            _initManager = initManager;
+
+            _initManager.InitRegions();
         }
     }
 }

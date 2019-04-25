@@ -158,6 +158,9 @@
     </Compile>
     <Compile Include="Command\WpfCommand\RelayCommand.cs" />
     <Compile Include="PE\LoginPe.cs" />
+    <Compile Include="Services\DiService\DiServiceInitializator.cs" />
+    <Compile Include="Services\InitManager.cs" />
+    <Compile Include="Services\RegionNameService.cs" />
     <Compile Include="Services\Settings\Settings\WinAppSettingsService.cs" />
     <Compile Include="ValueConverters\BaseValueConverter.cs" />
     <Compile Include="ViewModels\Auth\AuthFormViewModel.cs" />
@@ -242,6 +245,9 @@
       <Version>4.6.2</Version>
     </PackageReference>
     <PackageReference Include="Prism.DryIoc" Version="7.1.0.431" />
+    <PackageReference Include="Prism.Mef">
+      <Version>6.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

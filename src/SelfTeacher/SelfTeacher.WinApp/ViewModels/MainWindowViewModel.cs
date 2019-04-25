@@ -1,9 +1,6 @@
 ﻿using Prism.Mvvm;
 using SelfTeacher.WinApp.Command.WpfCommand;
 using SelfTeacher.WinApp.Domain.Service;
-using SelfTeacher.WinApp.Services;
-using SelfTeacherWinApp.Domain.Entities;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 
@@ -44,7 +41,7 @@ namespace SelfTeacher.WinApp.ViewModels
         /// <summary>
         /// The smallest height the window can go to
         /// </summary>
-        public double WindowMinimumHeight { get; set; } = 400;
+        public double WindowMinimumHeight { get; set; } = 500;
 
 
 

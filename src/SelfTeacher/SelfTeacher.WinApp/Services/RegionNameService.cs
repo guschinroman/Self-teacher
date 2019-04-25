@@ -6,6 +6,8 @@ namespace SelfTeacherWinApp.Infrastructure.Services
     {
         public string AuthRegion => "AuthRegion";
 
+        public string AuthFormRegion => "AuthForm";
+
         public string LanguageChangeRegion => "LanguageChangeRegion";
     }
 }

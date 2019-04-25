@@ -31,9 +31,15 @@
                 FontFamily="{StaticResource LatoBold}" />
 
 
-        <Button Style="{StaticResource TextButton}" Content="{Resx AuthForm.GoToRegisterText, ResxName=AuthForm}" HorizontalAlignment="Center" />
+        <Button Style="{StaticResource TextButton}"
+                Content="{Resx AuthForm.GoToRegisterText, ResxName=AuthForm}"
+                HorizontalAlignment="Center" 
+                Command="{Binding GoToRegistrationCommand}"/>
 
-        <Button Style="{StaticResource TextButton}" Content="{Resx AuthForm.ForgotPassword, ResxName=AuthForm}" HorizontalAlignment="Center" />
+        <Button
+            Style="{StaticResource TextButton}"
+            Content="{Resx AuthForm.ForgotPassword, ResxName=AuthForm}"
+            HorizontalAlignment="Center"/>
 
     </StackPanel>
 

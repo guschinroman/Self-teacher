@@ -6,7 +6,7 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:local="clr-namespace:SelfTeacher.WinApp.Views"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="600" Width="900"
+        Title="{Binding Title}" Height="800" Width="900"
         MinHeight="{Binding WindowMinimumHeight}"
         MinWidth="{Binding WindowMinimumWidth}"
         Icon="../Assets/Images/Logo/logo-default.png"

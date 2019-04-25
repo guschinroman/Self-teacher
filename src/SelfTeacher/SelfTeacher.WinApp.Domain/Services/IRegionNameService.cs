@@ -7,6 +7,7 @@ namespace SelfTeacher.WinApp.Domain.Services
     public interface IRegionNameService
     {
         String AuthRegion { get; }
+        String AuthFormRegion { get; }
         String LanguageChangeRegion { get; }
     }
 }

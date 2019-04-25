@@ -14,7 +14,12 @@ namespace SelfTeacher.WinApp.Domain.Services
         /// <summary>
         /// Initializion regions manager
         /// </summary>
-        void InitRegions()
+        void InitRegions();
+
+        /// <summary>
+        /// Initializition of localization service
+        /// </summary>
+        void InitLocalization();
 
     }
 }

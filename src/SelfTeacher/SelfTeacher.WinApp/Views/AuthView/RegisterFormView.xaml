@@ -14,7 +14,8 @@
 
         <Button Style="{StaticResource TextButton}" Content="{Resx RegisterForm.GoBack, ResxName=RegisterForm}"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Bottom" />
+                VerticalAlignment="Bottom"
+                Command="{Binding GoToAuthPageCommand}"/>
 
     </StackPanel>
 </UserControl>
