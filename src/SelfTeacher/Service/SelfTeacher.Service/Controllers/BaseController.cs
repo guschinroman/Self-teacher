@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using SelfTeacher.Service.Commands.Entity;
 using System.Threading.Tasks;
 
 namespace SelfTeacher.Service.Controllers
@@ -36,17 +34,17 @@ namespace SelfTeacher.Service.Controllers
             if (commandResults.Exception == null)
                 return !IsResultOk(result) ? Failed(result) : Ok();
 
-            Logger.LogError(commandResults.Exception);
+            Logger.LogError(commandResults.Exception, "", new object());
             return Failed(new CommandResults { Result = ECommandResults.ServerFailedWithException, Message = commandResults.Exception.Message });
         }
 
-        protected async Task<IHttpActionResult> ProcessAsync<T>(Task<ICommandDataResults<T>> commandResults)
+        protected async Task<IActionResult> ProcessAsync<T>(Task<ICommandDataResults<T>> commandResults)
         {
             var result = await commandResults;
             if (commandResults.Exception == null)
                 return !IsResultOk(result) ? Failed(result) : Ok(result.Data);
 
-            Logger.Error(commandResults.Exception);
+            Logger.LogError(commandResults.Exception, "", new object());
             return Failed(new CommandResults { Result = ECommandResults.ServerFailedWithException, Message = commandResults.Exception.Message });
         }
 
@@ -74,18 +72,18 @@ namespace SelfTeacher.Service.Controllers
             switch (commandResults.Result)
             {
                 case ECommandResults.ServerFailedWithException:
-                    response = Content(HttpStatusCode.InternalServerError, commandResults.Message);
+                    response = StatusCode(500, commandResults.Message);
                     break;
                 case ECommandResults.ObjectNotFound:
-                    response = Content(HttpStatusCode.NotFound, commandResults.Message);
+                    response = NotFound(commandResults.Message);
                     break;
                 case ECommandResults.OperationCanNotBePerformed:
-                    response = Content(HttpStatusCode.Forbidden, commandResults.Message);
+                    response = Forbid(commandResults.Message);
                     break;
                 default:
                     var errorText = "Unexpected command result: " + commandResults.Result;
-                    _logger.Error(errorText);
-                    response = Content(HttpStatusCode.InternalServerError, errorText);
+                    _logger.LogError(errorText);
+                    response = StatusCode(500, errorText);
                     break;
             }
             return response;

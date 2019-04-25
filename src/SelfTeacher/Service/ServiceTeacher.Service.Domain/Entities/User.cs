@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ServiceTeacher.Service.Domain.Entities
+﻿namespace ServiceTeacher.Service.Domain.Entities
 {
     /// <summary>
     /// Represent information of users
@@ -24,10 +20,14 @@ namespace ServiceTeacher.Service.Domain.Entities
         /// <summary>
         /// chipers information of user
         /// </summary>
-        public string Password { get; set; }
+        public byte[] PasswordHash { get; set; }
         /// <summary>
         /// Current token of users
         /// </summary>
         public string Token { get; set; }
+        /// <summary>
+        /// Password salt
+        /// </summary>
+        public byte[] PasswordSalt { get; set; }
     }
 }

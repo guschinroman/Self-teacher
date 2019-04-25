@@ -1,25 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using SelfTeacher.Service.Infrastructure.Dtos;
+using ServiceTeacher.Service.Domain.Services;
 
 namespace SelfTeacher.Service.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : Controller
+    public class UsersController : BaseController
     {
         #region Private fields
-        private IUserService userService;
+        private IUserService _userService;
         #endregion
 
         #region Constructor
-        public UsersController(IUserController userController)
+        public UsersController(IUserService userService, ILogger<BaseController> logger)
+            :base(logger)
         {
-            _userService = userController;
+            _userService = userService;
         }
         #endregion
 
@@ -32,7 +32,7 @@ namespace SelfTeacher.Service.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]User userParam)
+        public IActionResult Authenticate([FromBody]UserDto userParam)
         {
             var user = _userService.Authenticate(userParam.Username, userParam.Password);
 
