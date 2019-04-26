@@ -12,6 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Infrastructure.Services;
 using ServiceTeacher.Service.Domain.Helpers;
+using SelfTeacher.Service.CommandFabric;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 
 namespace SelfTeacher.Service
 {
@@ -27,8 +30,16 @@ namespace SelfTeacher.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddCors();
-            services.AddDbContext<DataContext>(x => x.UseInMemoryDatabase("TestDb"));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer("Server=PC-23\\SQLEXPRESS12;Database=SelfTeacher.dev;Trusted_Connection=True;"));
+
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var appSettingSection = Configuration.GetSection("AppSettings");
@@ -55,6 +66,9 @@ namespace SelfTeacher.Service
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAppSettings, AppSettings>();
+            services.AddScoped<UserCommandFabric, UserCommandFabric>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

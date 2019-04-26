@@ -22,6 +22,7 @@ namespace SelfTeacher.Service.Controllers
             :base(logger)
         {
             _userCommandFactory = userCommandFabric;
+            Logger = logger;
         }
         #endregion
 

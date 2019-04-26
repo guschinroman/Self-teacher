@@ -4,6 +4,6 @@ namespace SelfTeacher.Service.Infrastructure.Dtos
 {
     public class EntityDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
     }
 }
