@@ -31,11 +31,16 @@ namespace SelfTeacher.Service.Commands.UserCommands
         #region Methods
         protected override AuthenticateDto Run()
         {
+
+            Logger.LogTrace($"Start command for auth user {_userDto.Username}");
             AuthenticateDto user = (AuthenticateDto)_userService.Authenticate(_userDto.Username, _userDto.Password);
 
             if (user == null)
+            {
                 throw new OperationCannotBePerformedException("User don't exist");
+            }
 
+            Logger.LogTrace($"Finish auth command for user {_userDto.Username} with Ok responce");
             return user;
         }
         #endregion

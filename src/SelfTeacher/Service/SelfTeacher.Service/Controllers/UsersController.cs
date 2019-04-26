@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.CommandFabric;
 using SelfTeacher.Service.Infrastructure.Dtos;
-using ServiceTeacher.Service.Domain.Services;
 
 namespace SelfTeacher.Service.Controllers
 {
@@ -37,6 +36,7 @@ namespace SelfTeacher.Service.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UserDto userParam)
         {
+            Logger.LogTrace($"Get request for auth command for user {userParam.Username}");
             return Process(_userCommandFactory.GetAuthCommand(userParam).Execute());
         }
 
@@ -49,21 +49,9 @@ namespace SelfTeacher.Service.Controllers
         [HttpPost("register")]
         public IActionResult Registration([FromBody]UserDto userDto)
         {
+            Logger.LogTrace($"Get request for registration command for user {userDto.Username}");
             return Process(_userCommandFactory.GetRegister(userDto).Execute());
         }
-
-        /// <summary>
-        /// Method of get all users in system
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-
-            return Ok(users);
-        }
-
         #endregion
     }
 }

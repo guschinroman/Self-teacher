@@ -35,9 +35,11 @@ namespace SelfTeacher.Service.Commands.UserCommands
         #region Methods
         protected override void Run()
         {
+            Logger.LogTrace($"Start command for registration user {_userDto.FirstName}");
             var user = _mapper.Map<User>(_userDto);
             
             _userService.Create(user, _userDto.Password);
+            Logger.LogTrace($"Finish command for registration user {_userDto.FirstName} with OK responce");
         }
         #endregion
     }
