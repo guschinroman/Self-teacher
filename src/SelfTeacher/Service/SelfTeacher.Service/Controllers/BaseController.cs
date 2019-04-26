@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SelfTeacher.Service.Commands.Entity;
+using SelfTeacher.Service.Domain.Entities.Enum;
+using SelfTeacher.Service.Infrastructure.Service;
 using System.Threading.Tasks;
 
 namespace SelfTeacher.Service.Controllers

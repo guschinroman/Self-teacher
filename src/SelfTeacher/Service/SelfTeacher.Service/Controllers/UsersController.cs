@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SelfTeacher.Service.CommandFabric;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Services;
 
@@ -12,21 +13,23 @@ namespace SelfTeacher.Service.Controllers
     public class UsersController : BaseController
     {
         #region Private fields
-        private IUserService _userService;
+        private readonly UserCommandFabric _userCommandFactory;
         #endregion
 
         #region Constructor
-        public UsersController(IUserService userService, ILogger<BaseController> logger)
+        public UsersController(
+            UserCommandFabric userCommandFabric,
+            ILogger<BaseController> logger)
             :base(logger)
         {
-            _userService = userService;
+            _userCommandFactory = userCommandFabric;
         }
         #endregion
 
         #region Public Actions
 
         /// <summary>
-        /// Method of authenticate
+        /// Method for authenticate
         /// </summary>
         /// <param name="userParam"></param>
         /// <returns></returns>
@@ -34,14 +37,19 @@ namespace SelfTeacher.Service.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UserDto userParam)
         {
-            var user = _userService.Authenticate(userParam.Username, userParam.Password);
+            return Process(_userCommandFactory.GetAuthCommand(userParam).Execute());
+        }
 
-            if(user == null)
-            {
-                return BadRequest(new { message = "Username or password is incorrect" });
-            }
-
-            return Ok(user);
+        /// <summary>
+        /// Method for registration
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpPost("register")]
+        public IActionResult Registration([FromBody]UserDto userDto)
+        {
+            return Process(_userCommandFactory.GetRegister(userDto).Execute());
         }
 
         /// <summary>

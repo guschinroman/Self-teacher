@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SelfTeacher.Service.Controllers
+﻿namespace SelfTeacher.Service.Domain.Entities.Enum
 {
     public enum ECommandResults
     {
