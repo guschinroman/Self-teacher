@@ -39,6 +39,9 @@ namespace SelfTeacher.WinApp.ViewModels
             _regionManager = regionManager;
             _regionNameService = regionNameService;
             _viewModelNameService = viewModelNameService;
+
+            var region = _regionManager.Regions[_regionNameService.AuthFormRegion];
+            var authFormView = CommonServiceLocator.ServiceLocator.Current.GetInstance<>
         }
         #endregion
 
