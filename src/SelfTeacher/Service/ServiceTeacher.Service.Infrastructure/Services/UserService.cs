@@ -95,8 +95,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services
         {
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
-
-            if(_context.Users.Any(t => t.Username == user.Username))
+            if (_context.Users.Any(t => t.Username == user.Username))
                 throw new AppException("Username \"" + user.Username + "\" is already taken");
 
             byte[] passwordHash, passwordSalt;
