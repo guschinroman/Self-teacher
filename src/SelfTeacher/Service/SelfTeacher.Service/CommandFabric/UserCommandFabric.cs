@@ -4,6 +4,8 @@ using SelfTeacher.Service.Commands.UserCommands;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Infrastructure.Services;
+using System;
+using System.Collections.Generic;
 
 namespace SelfTeacher.Service.CommandFabric
 {
@@ -42,6 +44,20 @@ namespace SelfTeacher.Service.CommandFabric
             return new RegisterationCommand(userDto, _userService, _mapper, _logger);
         }
 
+        public ICommand<ICollection<UserDto>> GetAllUsers()
+        {
+            return new GetAllUserCommand(_userService, _mapper, _logger);
+        }
+
+        public ICommand<UserDto> GetUserById(Guid id)
+        {
+            return new GetUserByIdCommand(id, _userService, _mapper, _logger);
+        }
+
+        public ICommand GetUpdateUser(Guid id, UserDto user)
+        {
+            return new UpdateUserCommand(id, user, _userService, _mapper, _logger);
+        }
         #endregion
     }
 }

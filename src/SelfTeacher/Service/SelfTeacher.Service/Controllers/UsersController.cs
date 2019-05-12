@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.CommandFabric;
 using SelfTeacher.Service.Infrastructure.Dtos;
+using System;
 
 namespace SelfTeacher.Service.Controllers
 {
@@ -52,6 +53,32 @@ namespace SelfTeacher.Service.Controllers
         {
             Logger.LogTrace($"Get request for registration command for user {userDto.Username}");
             return Process(_userCommandFactory.GetRegister(userDto).Execute());
+        }
+
+        /// <summary>
+        /// Method for get all user in system
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("")]
+        public IActionResult GetAll()
+        {
+            Logger.LogTrace($"Get request for get all users");
+            return Process(_userCommandFactory.GetAllUsers().Execute());
+        }
+
+        [HttpGet("{id:guid}")]
+        public IActionResult GetById(Guid id)
+        {
+            Logger.LogTrace($"Get request for get one user by id {id}");
+            return Process(_userCommandFactory.GetUserById(id).Execute());
+        }
+
+
+        [HttpPut("{id:guid}")]
+        public IActionResult UpdateUserById(Guid id, [FromBody]UserDto userDto)
+        {
+            Logger.LogTrace($"Get request for update user with id {id}");
+            return Process(_userCommandFactory.GetUpdateUser(id, userDto).Execute());
         }
         #endregion
     }

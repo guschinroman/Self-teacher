@@ -1,2 +1,2 @@
-import { alertConstants } from './alert.constants';
-import { userConstants } from './user.constants';
+export { alertConstants, registrationTextConstantStrings } from './alert.constants';
+export { userConstants } from './user.constants'; 
