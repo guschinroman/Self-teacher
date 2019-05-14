@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost:58581",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:51786",
       "sslPort": 0
@@ -10,7 +14,7 @@
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
     "IIS Express": {
-      "commandName": "IISExpress",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "api/values",
       "environmentVariables": {
@@ -18,9 +22,9 @@
       }
     },
     "SelfTeacher.Service": {
-      "commandName": "Project",
+      "commandName": "IISExpress",
+      "workingDirectory": "C:\\Users\\roman.guschin\\Documents\\Self-teacher\\src\\SelfTeacher\\Service\\SelfTeacher.Service",
       "launchBrowser": true,
-      "launchUrl": "api/values",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

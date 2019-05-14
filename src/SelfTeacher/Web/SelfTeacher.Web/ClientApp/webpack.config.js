@@ -3,11 +3,16 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', ".ts", ".tsx", ".json"]
     },
     module: {
         rules: [
             {
+                test: /\.tsx?$/,
+                loader: "awesome-typescript-loader"
+            },
+            {
+                enforce: "pre",
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
@@ -31,6 +36,7 @@ module.exports = {
             filename: "./index.html"
           })
     ],
+    devtool: "source-map",
     output: {
         path: __dirname + '/dist',
         publicPath: '/',
