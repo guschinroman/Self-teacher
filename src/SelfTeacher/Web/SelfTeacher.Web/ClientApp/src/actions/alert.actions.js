@@ -3,17 +3,17 @@ import { alertConstants } from '../constrants';
 export const alertActions = {
     success,
     error,
-    clean
+    clear
 };
 
 function success(message) {
-    return { type: alertConstrants.alertConstants.SUCCESS, message };
+    return { type: alertConstants.SUCCESS, message };
 }
 
 function error(message) {
-    return { type: alertConstrants.alertConstants.ERROR, message };
+    return { type: alertConstants.ERROR, message };
 }
 
 function clear(message) {
-    return { type: alertConstants.alertConstants.CLEAR, message };
+    return { type: alertConstants.CLEAR, message };
 }

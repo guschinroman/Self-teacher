@@ -1,4 +1,4 @@
-import config from 'config';
+import { config } from './config/config.service';
 import { constStringsService } from '../services';
 import { authHaldler, authHeader } from '../helpers';
 

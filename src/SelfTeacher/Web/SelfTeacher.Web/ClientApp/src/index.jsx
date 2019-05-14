@@ -2,12 +2,9 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 
-import { store } from './_helpers';
-import { App } from './App';
+import { store } from './helpers';
+import { App } from './components/MainPage';
 
-// setup fake backend
-import { configureFakeBackend } from './_helpers';
-configureFakeBackend();
 
 render(
     <Provider store={store}>
@@ -15,3 +12,5 @@ render(
     </Provider>,
     document.getElementById('app')
 );
+
+module.hot.accept();

@@ -35,7 +35,7 @@ function login(username, password) {
 
 function logout() {
     userService.logout();
-    return { type: userConstants.LOGOUT; };
+    return { type: userConstants.LOGOUT };
 }
 
 function register(user) {
@@ -68,7 +68,7 @@ function getAll() {
 
         userService.getAll()
             .then(
-            users => dispatch(success(users));
+            users => dispatch(success(users)),
             error => dispatch(failure(error.toString()))
         );
     };
@@ -85,7 +85,7 @@ function _delete(id) {
         userService.delete(id)
             .then(
                 user => dispatch(success(id)),
-                error => dispatch(failure(id, error.toString()));               
+                error => dispatch(failure(id, error.toString()))          
             );
     };
 
