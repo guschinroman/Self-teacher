@@ -1,11 +1,19 @@
-import { config } from './config/config.service';
-import { constStringsService } from '.';
-import { authHaldler, authHeader } from '../helpers';
+import { ConstStringsService, ConfigApplication } from '.';
 import { ListDto } from './../models/ListDto';
 import { UserDto } from './../models/UserDto';
+import { ApiPathService } from './communication/api-path.service';
+import { IAuthenticateHttp } from './communication/iauthenticate-http';
+import { inject } from 'react-inversify';
 
-export class userService {
+export class UserService {
 
+    private _authHttp: IAuthenticateHttp;
+
+    constructor(
+        @inject("authenticate-http") private readonly authHttp: IAuthenticateHttp
+    ) {
+        this._authHttp = authHttp;
+    }
     /**
      * login method user service
      * @param username - login of user
@@ -13,38 +21,33 @@ export class userService {
      * @returns Promise after request and adding to local storage
      */
     public async login(username: string, password: string): Promise<any> {
-
-        const requestOptions = {
-            method: 'POST',
-            header: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        };
-    
-        const responce = await fetch(`${config.apiUrl}/users/authenticate`, requestOptions);
-        const user = await handleResponce(responce);
-        localStorage.setItem(constStringsService.USER_LOCALSTORAGE, user);
-        return user;
+        const responce = await this._authHttp.post(ApiPathService.authenticationPath(), JSON.stringify({ username, password }));
+        const user:UserDto = await responce.json();
+        localStorage.setItem(ConstStringsService.USER_LOCALSTORAGE, JSON.stringify(user));
     }
 
     /**
      * Logout function for remove user info from local storage
      */
     public logout(): void {
-        localStorage.removeItem(constStringsService.USER_LOCALSTORAGE);
+        localStorage.removeItem(ConstStringsService.USER_LOCALSTORAGE);
+    }
+
+    /**
+     * Register user in system by user info
+     */
+    public async register(user: UserDto): Promise<any> {
+        const responce = await this._authHttp.post(ApiPathService.registrationPath(), JSON.stringify(user));
+        return responce.json();
     }
 
     /**
      * Method for getting all users in system
      * @returns Promise with all users in system
      */
-    public async getAll(): Promise<ListDto<UserDto>> {
-        const requestOptions = {
-            method: 'GET',
-            headers: authHeader()
-        };
-    
-        const responce = await fetch(`${config.apiUrl}/users`, requestOptions);
-        return handleResponce(responce);
+    public async getAll(): Promise<ListDto<UserDto>> {            
+        const responce = await this._authHttp.get(ApiPathService.getUsersListPath());
+        return responce.json();
     }
 
     /**
@@ -52,14 +55,9 @@ export class userService {
      * @param id - id of user
      * @returns Promise with User information
      */
-    public async getById(id: string): Promise<UserDto> {
-        const requestOptions = {
-            method: 'GET',
-            header: authHeader()
-        };
-    
-        const responce = await fetch(`${config.apiUrl}/users/${id}`, requestOptions);
-        return handleResponce(responce);
+    public async getById(id: string): Promise<UserDto> {            
+        const responce = await this._authHttp.get(ApiPathService.getUserById(id));
+        return responce.json();
     }
 
     /**
@@ -67,14 +65,10 @@ export class userService {
      * @param User - UserDto for update
      * @returns Promise request for update
      */
-    public update(user: UserDto): Promise<UserDto> {
-        const requestOptions = {
-            method: 'PUT',
-            headers: { ...authHeader(), 'Content-Type': 'application/json' },
-            body: JSON.stringify(user)
-        };
-    
-        return fetch(`${config.apiUrl}/users/${user.Id}`, requestOptions).then(handleResponce);
+    public async update(user: UserDto): Promise<UserDto> {      
+        
+        const responce = await this._authHttp.post(ApiPathService.updateUserByID(user), JSON.stringify(user));
+        return responce.json();
     }
 
     /**
@@ -84,13 +78,8 @@ export class userService {
      */
     public async delete(id: string): Promise<void> {
 
-        const requestOptions = {
-            method: 'DELETE',
-            headers: authHeader()
-        };
-    
-        const responce = await fetch(`${config.apiUrl}/users/${id}`, requestOptions);
-        return handleResponce(responce);
+        const responce = await this._authHttp.delete(ApiPathService.deleteUserById(id));
+        return responce.json();
     }
 
 }

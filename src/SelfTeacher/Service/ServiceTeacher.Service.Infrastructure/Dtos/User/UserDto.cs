@@ -18,6 +18,10 @@
         /// </summary>
         public string Username { get; set; }
         /// <summary>
+        /// Email of users
+        /// </summary>
+        public string Email { get; set; }
+        /// <summary>
         /// Password of user
         /// </summary>
         public string Password { get; set; }
