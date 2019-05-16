@@ -5,6 +5,7 @@
   "dependencies": {
     "@types/react": "^16.8.17",
     "@types/react-dom": "^16.8.4",
+    "@types/react-router-dom": "^4.3.3",
     "history": "^4.6.3",
     "inversify": "^5.0.1",
     "inversify-react": "^0.4.1",

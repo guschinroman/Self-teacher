@@ -1,15 +1,30 @@
-﻿import React from 'react';
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
+import { UserActionCreator } from '../../actions';
+import React = require('react');
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { AppContainer } from './../../services/ioc/container';
 import { connect } from 'react-redux';
 
-import { userActions } from '../../actions';
+type Props = {
+    loggingIn: Boolean,
+    logout: () => { type: string },
+    login: (username: string, password: string) => void
+}
 
-class LoginPage extends React.Component {
-    constructor(props) {
-        super(props);
+type State = {
+    username: string,
+    password: string,
+    submitted: boolean
+}
 
+
+class LoginPage extends React.Component<Props, State> {
+    
+    constructor(props: Props) {
+        super(props)
         // reset login status
-        this.props.dispatch(userActions.logout());
+        props.logout();
 
         this.state = {
             username: '',
@@ -21,19 +36,18 @@ class LoginPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(e) {
+    handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        this.setState({...this.state, [name]: value });
     }
 
-    handleSubmit(e) {
+    handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-        this.setState({ submitted: true });
+        this.setState({...this.state, submitted: true });
         const { username, password } = this.state;
-        const { dispatch } = this.props;
         if (username && password) {
-            dispatch(userActions.login(username, password));
+            this.props.login(username, password);
         }
     }
 
@@ -71,12 +85,20 @@ class LoginPage extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    const { loggingIn } = state.authentication;
+const mapStateToProps = (store: State) => {
     return {
-        loggingIn
-    };
+    }
 }
 
-const connectedLoginPage = connect(mapStateToProps)(LoginPage);
-export { connectedLoginPage as LoginPage }; 
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
+    const userActionCreator: UserActionCreator = AppContainer.get<UserActionCreator>("user-action-creator");
+    return {
+        login: (username: string, password: string) => dispatch(userActionCreator.login(username, password)),
+        logout: () => dispatch(userActionCreator.logout())
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(LoginPage);

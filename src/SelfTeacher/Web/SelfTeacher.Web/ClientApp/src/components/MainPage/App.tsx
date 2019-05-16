@@ -1,22 +1,33 @@
-﻿import React from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+﻿import { HashRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { history } from '../../helpers';
-import { alertActions } from '../../actions';
-import { PrivateRoute } from '..';
 import { HomePage } from '../HomePage/HomePage';
-import { LoginPage } from '../LoginPage';
+import React = require('react');
+import { HistoryService } from './../../helpers/history';
+import LoginPage from '../LoginPage/LoginPage';
+import { ThunkDispatch } from 'redux-thunk';
+import { AnyAction } from 'redux';
+import { AlertClear } from './../../types/userTypes/alert.types';
+import { SuccessAlertAction, ClearAlertAction } from '../../actions';
 import { RegisterPage } from '../RegisterPage';
 
-class App extends React.Component {
-    constructor(props) {
+type State = {
+    alert: any
+}
+
+type Props = {
+    alertClear: () => { type: string },
+    alert: any
+}
+
+class App extends React.Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
 
-        const { dispatch } = this.props;
-        history.listen((location, action) => {
-            // clear alert on location change
-            dispatch(alertActions.clear());
+
+        HistoryService.history.listen((location, action) => {
+            this.props.alertClear();
         });
     }
 
@@ -29,9 +40,9 @@ class App extends React.Component {
                         {alert.message &&
                             <div className={`alert ${alert.type}`}>{alert.message}</div>
                         }
-                        <HashRouter history={history}>
+                        <HashRouter>
                             <div>
-                                <PrivateRoute exact path="/" component={HomePage} />
+                                <Route exact path="/" component={HomePage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
                             </div>
@@ -43,12 +54,18 @@ class App extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state: State) => {
     const { alert } = state;
     return {
         alert
     };
-}
+};
+
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
+    return {
+        alertClear: () => dispatch(ClearAlertAction("clear"))
+    };
+};
 
 const connectedApp = connect(mapStateToProps)(App);
 export { connectedApp as App }; 

@@ -1,4 +1,4 @@
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { Dispatch } from 'react';
 
 import { ErrorAlertAction } from '.';
@@ -10,6 +10,7 @@ import { FailureLoginAction, LoginActions, RequestLoginAction, SuccessLoginActio
 import { IUserService } from './../services/interfaces/iuser.service';
 import { SuccessAlertAction } from './alert.actions';
 
+@injectable()
 export class UserActionCreator {
 
     private readonly _userService: IUserService;

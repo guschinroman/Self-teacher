@@ -1,19 +1,34 @@
-﻿import React from 'react';
-import { Link } from 'react-router-dom';
+﻿import React = require('react');
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { AnyAction } from 'redux';
+import { ThunkDispatch } from 'redux-thunk';
 
-import { userActions } from '../../actions';
+import { UserActionCreator } from '../../actions';
+import { UserDto } from '../../models/UserDto';
+import { AppContainer } from '../../services/ioc/container';
 
-class RegisterPage extends React.Component {
-    constructor(props) {
+type State = {
+    user: UserDto,
+    submitted: boolean
+};
+
+type Props = {
+    register: (user: UserDto) => void,
+    registering: boolean
+}
+
+class RegisterPage extends React.Component<Props, State> {
+
+    constructor(props: Props) {
         super(props);
 
         this.state = {
             user: {
-                firstName: '',
-                lastName: '',
-                username: '',
-                password: ''
+                FirstName: '',
+                LastName: '',
+                Username: '',
+                Password: ''
             },
             submitted: false
         };
@@ -22,7 +37,7 @@ class RegisterPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleChange(event: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
         const { user } = this.state;
         this.setState({
@@ -33,14 +48,14 @@ class RegisterPage extends React.Component {
         });
     }
 
-    handleSubmit(event) {
+    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
         this.setState({ submitted: true });
         const { user } = this.state;
-        const { dispatch } = this.props;
-        if (user.firstName && user.lastName && user.username && user.password) {
-            dispatch(userActions.register(user));
+
+        if (user.FirstName && user.LastName && user.Username && user.Password) {
+            this.props.register(user)
         }
     }
 
@@ -51,31 +66,31 @@ class RegisterPage extends React.Component {
             <div className="col-md-6 col-md-offset-3">
                 <h2>Register</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !user.firstName ? ' has-error' : '')}>
-                        <label htmlFor="firstName">First Name</label>
-                        <input type="text" className="form-control" name="firstName" value={user.firstName} onChange={this.handleChange} />
-                        {submitted && !user.firstName &&
+                    <div className={'form-group' + (submitted && !user.FirstName ? ' has-error' : '')}>
+                        <label htmlFor="FirstName">First Name</label>
+                        <input type="text" className="form-control" name="FirstName" value={user.FirstName} onChange={this.handleChange} />
+                        {submitted && !user.FirstName &&
                             <div className="help-block">First Name is required</div>
                         }
                     </div>
-                    <div className={'form-group' + (submitted && !user.lastName ? ' has-error' : '')}>
-                        <label htmlFor="lastName">Last Name</label>
-                        <input type="text" className="form-control" name="lastName" value={user.lastName} onChange={this.handleChange} />
-                        {submitted && !user.lastName &&
+                    <div className={'form-group' + (submitted && !user.LastName ? ' has-error' : '')}>
+                        <label htmlFor="LastName">Last Name</label>
+                        <input type="text" className="form-control" name="LastName" value={user.LastName} onChange={this.handleChange} />
+                        {submitted && !user.LastName &&
                             <div className="help-block">Last Name is required</div>
                         }
                     </div>
-                    <div className={'form-group' + (submitted && !user.username ? ' has-error' : '')}>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={user.username} onChange={this.handleChange} />
-                        {submitted && !user.username &&
+                    <div className={'form-group' + (submitted && !user.Username ? ' has-error' : '')}>
+                        <label htmlFor="Username">Username</label>
+                        <input type="text" className="form-control" name="Username" value={user.Username} onChange={this.handleChange} />
+                        {submitted && !user.Username &&
                             <div className="help-block">Username is required</div>
                         }
                     </div>
-                    <div className={'form-group' + (submitted && !user.password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={user.password} onChange={this.handleChange} />
-                        {submitted && !user.password &&
+                    <div className={'form-group' + (submitted && !user.Password ? ' has-error' : '')}>
+                        <label htmlFor="Password">Password</label>
+                        <input type="Password" className="form-control" name="Password" value={user.Password} onChange={this.handleChange} />
+                        {submitted && !user.Password &&
                             <div className="help-block">Password is required</div>
                         }
                     </div>
@@ -92,12 +107,21 @@ class RegisterPage extends React.Component {
     }
 }
 
-function mapStateToProps(state) {
-    const { registering } = state.registration;
+const mapStateToProps = (state: State) => {
     return {
-        registering
-    };
+        registering: false
+    }
 }
 
-const connectedRegisterPage = connect(mapStateToProps)(RegisterPage);
+const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
+    const userActionCreator: UserActionCreator = AppContainer.get<UserActionCreator>("user-action-creator");
+    return {
+        register: (user: UserDto) => dispatch(userActionCreator.register(user))
+    }
+}
+
+const connectedRegisterPage = connect(
+    mapStateToProps,
+    mapDispatchToProps)(RegisterPage);
+
 export { connectedRegisterPage as RegisterPage };

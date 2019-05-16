@@ -1,16 +1,16 @@
 import { AlertConstants } from '../../constrants';
 
-interface AlertSuccess {
+export interface AlertSuccess {
     type:  typeof AlertConstants.SUCCESS
     message: string
 }
 
-interface AlertError {
+export interface AlertError {
     type: typeof AlertConstants.ERROR
     error: any
 }
 
-interface AlertClear {
+export interface AlertClear {
     type: typeof AlertConstants.CLEAR
     message: string
 }

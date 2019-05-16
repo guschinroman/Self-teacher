@@ -1,2 +1,2 @@
 ﻿export { SuccessAlertAction, ClearAlertAction, ErrorAlertAction } from './alert.actions';
-export { UserActions } from './user.actions';
+export { UserActionCreator } from './user.actions';
