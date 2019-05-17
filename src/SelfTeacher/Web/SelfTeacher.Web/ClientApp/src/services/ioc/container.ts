@@ -1,9 +1,9 @@
-import { Container } from 'inversify';
 import { IAuthenticateHttp } from './../communication/iauthenticate-http';
 import { AuthenticateHttp } from './../communication/authenticate-http';
 import { IUserService } from '../interfaces/iuser.service';
 import { UserService } from './../user.service';
 import { UserActionCreator } from '../../actions';
+import { Container } from 'react-inversify';
 
 export const AppContainer = new Container();
 

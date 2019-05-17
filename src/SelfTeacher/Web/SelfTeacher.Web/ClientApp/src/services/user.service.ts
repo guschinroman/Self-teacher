@@ -3,8 +3,10 @@ import { ListDto } from './../models/ListDto';
 import { UserDto } from './../models/UserDto';
 import { ApiPathService } from './communication/api-path.service';
 import { IAuthenticateHttp } from './communication/iauthenticate-http';
-import { inject } from 'react-inversify';
+import { inject, injectable } from 'react-inversify';
+import { isNullOrUndefined } from 'util';
 
+@injectable()
 export class UserService {
 
     private _authHttp: IAuthenticateHttp;
@@ -14,6 +16,13 @@ export class UserService {
     ) {
         this._authHttp = authHttp;
     }
+
+    public IsLoginUser() {
+        const user = localStorage.getItem(ConstStringsService.USER_LOCALSTORAGE);
+
+        return !isNullOrUndefined(user);
+    }
+
     /**
      * login method user service
      * @param username - login of user

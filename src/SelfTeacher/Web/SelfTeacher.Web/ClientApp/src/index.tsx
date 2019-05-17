@@ -1,16 +1,14 @@
 import "reflect-metadata";
 import * as React from "react";
 import { render } from 'react-dom';
-import * as inversify from 'inversify';
-import { Provider } from 'react-inversify';
 
 import { store } from './helpers';
 import { App } from './components/MainPage';
-import { AppContainer } from "./services/ioc/container";
+import { Provider } from "react-redux";
 
 
 render(
-    <Provider store={store} container={AppContainer}>
+    <Provider store={store}>
         <App />
     </Provider>,
     document.getElementById('app')

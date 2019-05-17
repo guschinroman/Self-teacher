@@ -7,16 +7,18 @@ import { HistoryService } from './../../helpers/history';
 import LoginPage from '../LoginPage/LoginPage';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import { AlertClear } from './../../types/userTypes/alert.types';
-import { SuccessAlertAction, ClearAlertAction } from '../../actions';
 import { RegisterPage } from '../RegisterPage';
+import { ClearAlertAction } from '../../actions';
+import { Container, Provider } from 'react-inversify';
+import { AppContainer } from './../../services/ioc/container';
+import { PrivateRoute } from '../Common/PrivateRoute';
 
 type State = {
     alert: any
 }
 
 type Props = {
-    alertClear: () => { type: string },
+    alertClear: () => { type: string, message: string },
     alert: any
 }
 
@@ -34,22 +36,24 @@ class App extends React.Component<Props, State> {
     render() {
         const { alert } = this.props;
         return (
-            <div className="jumbotron">
-                <div className="container">
-                    <div className="col-sm-8 col-sm-offset-2">
-                        {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
-                        <HashRouter>
-                            <div>
-                                <Route exact path="/" component={HomePage} />
-                                <Route path="/login" component={LoginPage} />
-                                <Route path="/register" component={RegisterPage} />
-                            </div>
-                        </HashRouter>
+            <Provider container={AppContainer}>
+                <div className="jumbotron">
+                    <div className="container">
+                        <div className="col-sm-8 col-sm-offset-2">
+                            {alert.message &&
+                                <div className={`alert ${alert.type}`}>{alert.message}</div>
+                            }
+                            <HashRouter>
+                                <div>
+                                    <PrivateRoute exact path="/" component={HomePage} />
+                                    <Route path="/login" component={LoginPage} />
+                                    <Route path="/register" component={RegisterPage} />
+                                </div>
+                            </HashRouter>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Provider>
         );
     }
 }
@@ -67,5 +71,7 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
     };
 };
 
-const connectedApp = connect(mapStateToProps)(App);
+const connectedApp = connect(
+    mapStateToProps,
+    mapDispatchToProps)(App);
 export { connectedApp as App }; 
