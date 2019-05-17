@@ -10,7 +10,7 @@ const LanguageToggle = (params: Props) =>  (
     {params.languages.map(lang => (
       <li key={lang.code}>
         <button onClick={() => params.setActiveLanguage(lang.code)}>
-          {lang.name}
+          {lang.code}
         </button>
       </li>
     ))}

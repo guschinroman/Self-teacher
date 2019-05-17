@@ -1,7 +1,7 @@
 ﻿import React = require('react');
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Provider } from 'react-inversify';
-import { LocalizeContextProps, LocalizeProvider, withLocalize } from 'react-localize-redux';
+import { LocalizeContextProps, withLocalize, InitializeOptions } from 'react-localize-redux';
 import { connect } from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
 import { AnyAction } from 'redux';
@@ -15,6 +15,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { HistoryService } from './../../helpers/history';
 import { AppContainer } from './../../services/ioc/container';
+import { ConstStringsService } from './../../services/common/constString.service';
 
 type State = {
     alert: any
@@ -30,18 +31,33 @@ class App extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+        const languages = ["en", "ru"];
+
+        const defaultLanguage = localStorage.getItem(ConstStringsService.LANGUAGE_LOCALSTORAGE) || languages[0];
+
+        let languageOptions: InitializeOptions = {
+            renderToStaticMarkup: renderToStaticMarkup,
+            defaultLanguage: defaultLanguage
+        };
+
         this.props.initialize({
-            languages: [
-                { name: "English", code: "en" },
-                { name: "Russian", code: "ru "}
-            ],
+            languages: languages,
             translation: {},
-            options: { renderToStaticMarkup  }
+            options: languageOptions
         });
 
         HistoryService.history.listen((location, action) => {
             this.props.alertClear();
         });
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        const prevLangCode = prevProps.activeLanguage && prevProps.activeLanguage.code;
+        const curLangCode = this.props.activeLanguage && this.props.activeLanguage.code;
+        const hasLanguageChanged = prevLangCode !== curLangCode;
+        if (hasLanguageChanged) {
+            localStorage.setItem(ConstStringsService.LANGUAGE_LOCALSTORAGE, curLangCode);
+        }
     }
 
     render() {
