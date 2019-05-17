@@ -1,0 +1,16 @@
+{
+    "LoginPage": {
+        "Text": {
+            "Login": ["Login", "Вход"],
+            "Register": ["Sign in", "Зарегистрироваться"]
+        },
+        "Fields": {
+            "Username": ["Username", "Логин"],
+            "Password": ["Password", "Пароль"]
+        },
+        "Validation": {
+            "UsernameRequired": ["Username is required", "Заполните поле логина"],
+            "PasswordRequired": ["Password is required", "Заполнител пароль"]
+        }
+    }
+}

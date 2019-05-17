@@ -1,0 +1,11 @@
+{
+    "HomePage": {
+        "Greetings": {
+            "Hi": [ "Hi", "Привет" ],
+            "YouAreLogged": ["You're logged in!!", "Вы зашли в систему"]
+        },
+        "Func": {
+            "Logout": ["Logout", "Выйти"]
+        }
+    }
+}

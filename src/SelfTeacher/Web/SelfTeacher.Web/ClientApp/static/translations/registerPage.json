@@ -1,0 +1,25 @@
+{
+    "RegisterPage": {
+        "Text": {
+            "Register": ["Sign in", "Регистрация"],
+            "Cancel": ["Cancel", "Отмена"],
+            "RegisterButton": ["Register", "Зарегистрироваться"]
+        },
+        "Fields": {
+            "Firstname": ["First Name", "Имя"],
+            "LastName": ["Last Name", "Фамилия"],
+            "Username": ["Username", "Логин"],
+            "Password": ["Password", "Пароль"],
+            "Email": ["Email", "Email"]
+        },
+        "Validation": {
+            "FirstNameRequired": ["First Name is required", "Имя обязательна для заполнения"],
+            "LastNameRequired": ["Last Name is required", "Фамилия обязательна для заполнения"],
+            "UserNameRequired": ["Username is required", "Логин обязателен для заполнения"],
+            "PasswordRequired": ["Password is required", "Пароль обязателен для заполнения"],
+            "PasswordMustBeEqual": ["Password must be equal", "Пароли должны совпадать"],
+            "EmailRequired": ["Email is required", "Email обязателей для заполнения"],
+            "EmailInUncorrect": ["Email is in incorrect format", "Email в не корретном формате"]
+        }
+    }
+}

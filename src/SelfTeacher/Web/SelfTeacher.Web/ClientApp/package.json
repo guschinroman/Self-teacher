@@ -12,6 +12,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-inversify": "^2.0.1",
+    "react-localize-redux": "^3.5.3",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "redux": "^4.0.1",

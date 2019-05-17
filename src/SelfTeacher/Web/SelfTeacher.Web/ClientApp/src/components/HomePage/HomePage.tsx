@@ -1,9 +1,12 @@
-﻿import { connect, Store } from 'react-redux';
-import React = require('react');
+﻿import React = require('react');
+import { LocalizeContextProps, Translate, withLocalize } from 'react-localize-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import * as homePageTranslation from '../../../static/translations/homePage.json';
+
 import { UserDto } from '../../models/UserDto';
 
-type Props = {
+type Props = LocalizeContextProps & {
     user: UserDto
 }
 
@@ -12,6 +15,13 @@ type State = {
 }
 
 class HomePage extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+
+        this.props.addTranslation(homePageTranslation);
+    }
+
     componentDidMount() {
     }
 
@@ -19,11 +29,14 @@ class HomePage extends React.Component<Props, State> {
         const { user } = this.props;
         return (
             <div className="col-md-6 col-md-offset-3">
-                <h1>Hi {user.FirstName}!</h1>
-                <p>You're logged in with React!!</p>
-                <h3>All registered users:</h3>
+                <h1>
+                    <Translate id="HomePage.Greetings.Hi" /> {user.FirstName}!
+                </h1>
                 <p>
-                    <Link to="/login">Logout</Link>
+                    <Translate id="HomePage.Greetings.YouAreLogged" />
+                </p>
+                <p>
+                    <Link to="/login"> <Translate id="HomePage.Func.Logout" /> </Link>
                 </p>
             </div>
         );
@@ -38,5 +51,5 @@ function mapStateToProps(state: any) {
     };
 }
 
-const connectedHomePage = connect(mapStateToProps)(HomePage);
+const connectedHomePage = withLocalize(connect(mapStateToProps)(HomePage));
 export { connectedHomePage as HomePage };
