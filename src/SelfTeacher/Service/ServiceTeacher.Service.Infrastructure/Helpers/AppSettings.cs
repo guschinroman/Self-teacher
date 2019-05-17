@@ -1,4 +1,5 @@
 ﻿using ServiceTeacher.Service.Domain.Helpers;
+using ServiceTeacher.Service.Infrastructure.Services.EmailService;
 
 namespace ServiceTeacher.Service.Infrastructure.Helpers
 {
@@ -11,5 +12,10 @@ namespace ServiceTeacher.Service.Infrastructure.Helpers
         /// Secret for athentication task
         /// </summary>
         public string Secret { get; set; }
+
+        /// <summary>
+        /// Setting of email account for notifications
+        /// </summary>
+        public EmailSettings EmailAccountSender { get; set; }
     }
 }

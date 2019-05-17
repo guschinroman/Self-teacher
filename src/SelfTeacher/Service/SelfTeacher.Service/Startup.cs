@@ -66,6 +66,7 @@ namespace SelfTeacher.Service
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAppSettings, AppSettings>();
+            services.AddSingleton<IEmailService, IEmailService>();
             services.AddScoped<UserCommandFabric, UserCommandFabric>();
 
 

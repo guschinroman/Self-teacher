@@ -1,4 +1,6 @@
-﻿namespace ServiceTeacher.Service.Domain.Entities
+﻿using ServiceTeacher.Service.Domain.Entities.Enum;
+
+namespace ServiceTeacher.Service.Domain.Entities
 {
     /// <summary>
     /// Represent information of users
@@ -29,5 +31,9 @@
         /// Password salt
         /// </summary>
         public byte[] PasswordSalt { get; set; }
+        /// <summary>
+        /// UserState
+        /// </summary>
+        public EUserAccountState UserAccountState {get; set; }
     }
 }
