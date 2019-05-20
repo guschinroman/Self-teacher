@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace ServiceTeacher.Service.Domain.Services
+namespace ServiceTeacher.Service.Domain.Services.EmailService
 {
     public interface IEmailService
     {

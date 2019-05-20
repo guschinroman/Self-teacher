@@ -1,5 +1,5 @@
-﻿using ServiceTeacher.Service.Domain.Helpers;
-using ServiceTeacher.Service.Infrastructure.Services.EmailService;
+﻿using ServiceTeacher.Service.Domain.Entities.EmailService;
+using ServiceTeacher.Service.Domain.Helpers;
 
 namespace ServiceTeacher.Service.Infrastructure.Helpers
 {

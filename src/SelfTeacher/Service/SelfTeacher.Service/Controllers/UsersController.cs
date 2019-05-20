@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.CommandFabric;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using System;
+using System.Threading.Tasks;
 
 namespace SelfTeacher.Service.Controllers
 {
@@ -49,10 +50,18 @@ namespace SelfTeacher.Service.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Registration([FromBody]UserDto userDto)
+        public async Task<IActionResult> Registration([FromBody]UserDto userDto)
         {
             Logger.LogTrace($"Get request for registration command for user {userDto.Username}");
-            return Process(_userCommandFactory.GetRegister(userDto).Execute());
+            return Process(await _userCommandFactory.GetRegister(userDto).Execute());
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult ConfirmRegistration(string userId, string code)
+        {
+            Logger.LogTrace($"Get request for confrim registration command for user with id {userId} and code {code}");
+            return Process(_userCommandFactory.GetConfirmRegistration(userId, code).Execute());
         }
 
         /// <summary>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceTeacher.Service.Infrastructure.Services.EmailService
+namespace ServiceTeacher.Service.Domain.Entities.EmailService
 {
     public class EmailSettings
     {
@@ -13,7 +13,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services.EmailService
         /// <summary>
         /// Port for smtp server
         /// </summary>
-        public int MainPort { get; set; }
+        public int MailPort { get; set; }
         /// <summary>
         /// Sender name of account of smpt server
         /// </summary>
@@ -26,5 +26,13 @@ namespace ServiceTeacher.Service.Infrastructure.Services.EmailService
         /// Password of account of smtp-server
         /// </summary>
         public string Password { get; set; }
+        /// <summary>
+        /// Root path of templates
+        /// </summary>
+        public string RootPathOfTemplates { get; set; }
+        /// <summary>
+        /// Registration link template
+        /// </summary>
+        public string RegistrationLinkTemplate { get; set; }
     }
 }

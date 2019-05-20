@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using SelfTeacher.Service.Helpers.DataContext;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Entities;
+using ServiceTeacher.Service.Domain.Entities.Enum;
 using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Infrastructure.Exceptions;
 using ServiceTeacher.Service.Infrastructure.Helpers;
@@ -103,6 +104,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
+            user.UserAccountState = EUserAccountState.NotConfirmed;
 
             _context.Users.Add(user);
             _context.SaveChanges();
@@ -116,6 +118,33 @@ namespace ServiceTeacher.Service.Infrastructure.Services
         {
             return _context.Users;
         }
+
+        /// <summary>
+        /// Confirmation user method
+        /// </summary>
+        /// <param name="userId">Identificator of user</param>
+        /// <param name="code">Confirmation code</param>
+        public void ConfirmUser(Guid userId, string code)
+        {
+            var user = _context.Users.Find(userId);
+
+            if(user == null)
+            {
+                throw new AppException("User not found");
+            }
+
+            if(user.ConfirmCode != code)
+            {
+                throw new AppException("Confirmation code is incorrect");
+            }
+
+            user.UserAccountState = EUserAccountState.Confirmed;
+
+            _context.Users.Update(user);
+            _context.SaveChanges();
+
+        }
+        
 
         /// <summary>
         /// Method for taking one user by ID

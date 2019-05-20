@@ -24,6 +24,13 @@ namespace ServiceTeacher.Service.Domain.Services
         IEnumerable<User> GetAll();
 
         /// <summary>
+        /// Confirmation user method
+        /// </summary>
+        /// <param name="userId">Identificator of user</param>
+        /// <param name="code">Confirmation code</param>
+        void ConfirmUser(Guid userId, string code);
+
+        /// <summary>
         /// Method for taking one user by ID
         /// </summary>
         /// <param name="id"></param>

@@ -25,5 +25,9 @@
         /// Password of user
         /// </summary>
         public string Password { get; set; }
+        /// <summary>
+        /// Confirm Code of registration
+        /// </summary>
+        public string ConfirmCode { get; set; }
     }
 }

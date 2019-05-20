@@ -24,6 +24,10 @@ namespace ServiceTeacher.Service.Domain.Entities
         /// </summary>
         public byte[] PasswordHash { get; set; }
         /// <summary>
+        /// Email of users
+        /// </summary>
+        public string Email { get; set; }
+        /// <summary>
         /// Current token of users
         /// </summary>
         public string Token { get; set; }
@@ -35,5 +39,9 @@ namespace ServiceTeacher.Service.Domain.Entities
         /// UserState
         /// </summary>
         public EUserAccountState UserAccountState {get; set; }
+        /// <summary>
+        /// Confirm Code of registration
+        /// </summary>
+        public string ConfirmCode { get; set; }
     }
 }
