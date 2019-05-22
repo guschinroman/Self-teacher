@@ -41,6 +41,9 @@
     <None Update="ClientApp\src\models\UserDto.ts">
       <CustomToolNamespace>..\..\Service\ServiceTeacher.Service.Infrastructure\Dtos\User\UserDto.cs</CustomToolNamespace>
     </None>
+    <None Update="ClientApp\src\models\VkAccessTokenDto.ts">
+      <CustomToolNamespace>..\..\Service\ServiceTeacher.Service.Infrastructure\Services\AuthServices\VkAccessTokenDto.cs</CustomToolNamespace>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

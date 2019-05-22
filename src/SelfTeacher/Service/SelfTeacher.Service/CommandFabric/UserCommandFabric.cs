@@ -67,6 +67,7 @@ namespace SelfTeacher.Service.CommandFabric
         {
             return new UpdateUserCommand(id, user, _userService, _mapper, _logger);
         }
+
         #endregion
     }
 }

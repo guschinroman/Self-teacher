@@ -2,7 +2,11 @@
     "LoginPage": {
         "Text": {
             "Login": ["Login", "Вход"],
-            "Register": ["Sign in", "Зарегистрироваться"]
+            "Register": ["Sign in", "Зарегистрироваться"],
+            "Vk": ["Vk", "ВК"],
+            "Facebook": ["Facebook", "Facebook"],
+            "Twitter": ["Twitter", "Twitter"],
+            "Google": ["Google", "Google"]
         },
         "Fields": {
             "Username": ["Username", "Логин"],

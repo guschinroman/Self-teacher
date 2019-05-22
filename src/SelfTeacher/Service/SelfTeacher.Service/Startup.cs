@@ -16,6 +16,7 @@ using SelfTeacher.Service.CommandFabric;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using ServiceTeacher.Service.Infrastructure.Services.EmailService;
+using ServiceTeacher.Service.Domain.Services.EmailService;
 
 namespace SelfTeacher.Service
 {
@@ -66,8 +67,11 @@ namespace SelfTeacher.Service
             });
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAppSettings, AppSettings>();
+            services.AddScoped<IAppSettings>(t => appSettings);
             services.AddScoped<UserCommandFabric, UserCommandFabric>();
+            services.AddScoped<AccountCommandFabric, AccountCommandFabric>();
+            services.AddScoped<IClientEmailSender, ClientEmailSender>();
+            services.AddScoped<IEmailTemplateNameService, EmailTemplateNameService>();
             services.AddSingleton<IEmailService, EmailService>();
 
 

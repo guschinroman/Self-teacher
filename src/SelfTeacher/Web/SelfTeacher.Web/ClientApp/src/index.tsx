@@ -1,6 +1,7 @@
 import "reflect-metadata";
 import * as React from "react";
 import { render } from 'react-dom';
+import './index.scss';
 
 import { store } from './helpers';
 import { App } from './components/MainPage';

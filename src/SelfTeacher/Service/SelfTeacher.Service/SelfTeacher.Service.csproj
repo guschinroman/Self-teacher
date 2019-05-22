@@ -5,7 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="EmailTemplates\Templates.ConfirmRegistrationTemplate.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="EmailTemplates\Templates.ConfirmRegistrationTemplate.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

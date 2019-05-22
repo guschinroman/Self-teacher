@@ -2,6 +2,9 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+    node: {
+        fs: "empty"
+    },
     resolve: {
         extensions: ['.js', '.jsx', ".ts", ".tsx", ".json"]
     },
@@ -25,6 +28,20 @@ module.exports = {
                   {
                     loader: "html-loader"
                   }
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader'
+                    },
+                    {
+                        loader:'sass-loader'
+                    }
                 ]
             }
         ]

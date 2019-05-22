@@ -28,4 +28,9 @@ export class ApiPathService {
     public static deleteUserById(id: string) {
         return `${ConfigApplication.apiUrl}/users/${id}`;
     }
+
+    //Account paths
+    public static getVkAuthPath() {
+        return `${ConfigApplication.apiUrl}/account/get-vk-authenticate-link`;
+    }
 }

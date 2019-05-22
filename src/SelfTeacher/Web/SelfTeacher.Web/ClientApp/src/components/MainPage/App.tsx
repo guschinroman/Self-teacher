@@ -1,8 +1,6 @@
 ﻿import React = require('react');
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Provider } from 'react-inversify';
 import { LocalizeContextProps, withLocalize, InitializeOptions } from 'react-localize-redux';
-import { connect } from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
@@ -14,8 +12,9 @@ import { HomePage } from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
 import { RegisterPage } from '../RegisterPage';
 import { HistoryService } from './../../helpers/history';
-import { AppContainer } from './../../services/ioc/container';
 import { ConstStringsService } from './../../services/common/constString.service';
+import { connect } from 'react-redux';
+import { IocConfig } from '../../services/ioc/AppContainer';
 
 type State = {
     alert: any
@@ -31,6 +30,7 @@ class App extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
+        IocConfig.config();
         const languages = ["en", "ru"];
 
         const defaultLanguage = localStorage.getItem(ConstStringsService.LANGUAGE_LOCALSTORAGE) || languages[0];
@@ -63,26 +63,24 @@ class App extends React.Component<Props, State> {
     render() {
         const { alert } = this.props;
         return (
-            <Provider container={AppContainer}>
-                <div className="jumbotron">
-                    <div className="container">
-                        <div className="col-sm-8 col-sm-offset-2">
-                            {alert.message &&
-                                <div className={`alert ${alert.type}`}>{alert.message}</div>
-                            }
-                            <LanguageToggle langProps={this.props}>
-                            </LanguageToggle>
-                            <HashRouter>
-                                <div>
-                                    <PrivateRoute exact path="/" component={HomePage} />
-                                    <Route path="/login" component={LoginPage} />
-                                    <Route path="/register" component={RegisterPage} />
-                                </div>
-                            </HashRouter>
-                        </div>
+            <div >
+                <div >
+                    <div >
+                        {alert.message &&
+                            <div>{alert.message}</div>
+                        }
+                        <LanguageToggle langProps={this.props}>
+                        </LanguageToggle>
+                        <HashRouter>
+                            <div>
+                                <PrivateRoute exact path="/" component={HomePage} />
+                                <Route path="/login" component={LoginPage} />
+                                <Route path="/register" component={RegisterPage} />
+                            </div>
+                        </HashRouter>
                     </div>
                 </div>
-            </Provider>
+            </div>
         );
     }
 }

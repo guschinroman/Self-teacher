@@ -1,13 +1,15 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "types": ["reflect-metadata"],
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
         "module": "commonjs",
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "target": "es5",
+        "target": "ES2016",
         "typeRoots": [
           "node_modules/@types"
         ],

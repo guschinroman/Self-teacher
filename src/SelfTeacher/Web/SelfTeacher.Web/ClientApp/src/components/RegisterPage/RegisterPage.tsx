@@ -7,8 +7,8 @@ import * as registerPageTranslation from '../../../static/translations/registerP
 
 import { UserActionCreator } from '../../actions';
 import { UserDto } from '../../models/UserDto';
-import { AppContainer } from '../../services/ioc/container';
 import { LocalizeContextProps, Translate, withLocalize } from 'react-localize-redux';
+import { Container } from 'typescript-ioc';
 
 type State = {
     user: UserDto,
@@ -145,7 +145,7 @@ const mapStateToProps = (state: State) => {
 }
 
 const mapDispatchToProps = (dispatch: ThunkDispatch<any, any, AnyAction>) => {
-    const userActionCreator: UserActionCreator = AppContainer.get<UserActionCreator>("user-action-creator");
+    const userActionCreator: UserActionCreator = Container.get(UserActionCreator);
     return {
         register: (user: UserDto) => dispatch(userActionCreator.register(user))
     }

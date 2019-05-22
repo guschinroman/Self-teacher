@@ -1,4 +1,3 @@
-import { inject, injectable } from 'inversify';
 import { Dispatch } from 'react';
 
 import { ErrorAlertAction } from '.';
@@ -9,17 +8,12 @@ import { FailureRegisterAction, RegisterActions, RequestRegisterAction, SuccessR
 import { FailureLoginAction, LoginActions, RequestLoginAction, SuccessLoginAction } from '../types/userTypes/login.types';
 import { IUserService } from './../services/interfaces/iuser.service';
 import { SuccessAlertAction } from './alert.actions';
+import { Inject } from 'typescript-ioc';
 
-@injectable()
 export class UserActionCreator {
 
+    @Inject
     private readonly _userService: IUserService;
-
-    constructor(
-        @inject("user-service") private readonly userService: IUserService
-        ) {
-            this._userService = userService;
-        }
 
     public login(username: string, password: string) {
         return (dispatch: Dispatch<LoginActions>) => {

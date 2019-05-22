@@ -3,24 +3,18 @@ import { ListDto } from './../models/ListDto';
 import { UserDto } from './../models/UserDto';
 import { ApiPathService } from './communication/api-path.service';
 import { IAuthenticateHttp } from './communication/iauthenticate-http';
-import { inject, injectable } from 'react-inversify';
-import { isNullOrUndefined } from 'util';
+import { Inject, Container } from 'typescript-ioc';
+import { IUserService } from './interfaces/iuser.service';
 
-@injectable()
-export class UserService {
+export class UserService extends IUserService {
 
+    @Inject
     private _authHttp: IAuthenticateHttp;
-
-    constructor(
-        @inject("authenticate-http") private readonly authHttp: IAuthenticateHttp
-    ) {
-        this._authHttp = authHttp;
-    }
 
     public IsLoginUser() {
         const user = localStorage.getItem(ConstStringsService.USER_LOCALSTORAGE);
 
-        return !isNullOrUndefined(user);
+        return user && user != null;
     }
 
     /**

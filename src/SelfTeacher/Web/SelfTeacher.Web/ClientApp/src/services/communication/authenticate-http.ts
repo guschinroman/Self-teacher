@@ -1,9 +1,7 @@
 import { ConstStringsService, ConfigApplication } from '..';
 import { IAuthenticateHttp } from './iauthenticate-http';
-import { injectable } from 'inversify';
 
-@injectable()
-export class AuthenticateHttp implements IAuthenticateHttp {
+export class AuthenticateHttp extends  IAuthenticateHttp {
 
 /**
  * GET request for client
@@ -13,9 +11,10 @@ export class AuthenticateHttp implements IAuthenticateHttp {
  */
     public async get(url: string, options?: any, encode = true): Promise<Response> {
 
+        options = options || {};
         options.method = 'GET';
     
-        const responce = await fetch(`${ConfigApplication.apiUrl}${url}`, this.addJwt(options, encode));
+        const responce = await fetch(`${url}`, this.addJwt(options, encode));
         return this.handleResponce(responce);
     }
 
@@ -33,7 +32,7 @@ export class AuthenticateHttp implements IAuthenticateHttp {
         options.headers = options.headers || new Headers();
         options.headers.append('Content-type', 'application/json');
         options.body = body;
-        const responce = await fetch(`${ConfigApplication.apiUrl}${url}`, this.addJwt(options));
+        const responce = await fetch(`${url}`, this.addJwt(options));
         return this.handleResponce(responce);
     }
 
@@ -50,7 +49,7 @@ export class AuthenticateHttp implements IAuthenticateHttp {
         options.headers = options.headers || new Headers();
         options.headers.append('Content-type', 'application/json');
         options.body = body;
-        const responce = await fetch(`${ConfigApplication.apiUrl}${url}`, this.addJwt(options));
+        const responce = await fetch(`${url}`, this.addJwt(options));
         return this.handleResponce(responce);
     }
 
@@ -62,9 +61,10 @@ export class AuthenticateHttp implements IAuthenticateHttp {
      */
     public async delete(url: string, options?: any, encode = true): Promise<Response> {
 
+        options = options || {};
         options.method = 'DELETE';
     
-        const responce = await fetch(`${ConfigApplication.apiUrl}${url}`, this.addJwt(options, encode));
+        const responce = await fetch(`${url}`, this.addJwt(options, encode));
         return this.handleResponce(responce);
     }
 
@@ -95,16 +95,24 @@ export class AuthenticateHttp implements IAuthenticateHttp {
      * Method for checking responce
      * @param responce Responce for server to check answer
      */
-    private async handleResponce(responce: Response): Promise<any> {
-        const text = await responce.text();
-        const data = text && JSON.parse(text);
+    private async handleResponce(responce: Response): Promise<Response> {
+
         if (!responce.ok) {
             if (responce.status === 401) {
+                const text = await responce.text();
+                let data;
+                try {
+                    data = text && JSON.parse(text);
+                } catch(ex) {
+                    data = text && text;
+                }
                 localStorage.removeItem(ConstStringsService.USER_LOCALSTORAGE);
                 location.reload(true);
+                const error = (data && data.message) || responce.statusText;
+                return Promise.reject(error);
             }
+        } else {
+            return Promise.resolve(responce);
         }
-        const error = (data && data.message) || responce.statusText;
-        return Promise.reject(error);
     }
 }

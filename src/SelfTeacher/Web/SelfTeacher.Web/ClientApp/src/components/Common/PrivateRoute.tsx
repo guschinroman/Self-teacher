@@ -1,7 +1,8 @@
 import * as React from "react"
 import {Redirect, Route, RouteComponentProps, RouteProps} from "react-router-dom"
 import { UserService } from "../../services";
-import { AppContainer } from "../../services/ioc/container";
+import { Container } from 'typescript-ioc';
+import { IUserService } from "../../services/interfaces/iuser.service";
 
 type RouteComponent = React.StatelessComponent<RouteComponentProps<{}>> | React.ComponentClass<any>
 
@@ -11,7 +12,7 @@ export const PrivateRoute: React.StatelessComponent<RouteProps> = ({component, .
       return null
     }
 
-    const userService = AppContainer.get<UserService>("user-service");
+    const userService: IUserService = Container.get(IUserService);
 
     if (userService.IsLoginUser()) {
       return <Component {...props} />

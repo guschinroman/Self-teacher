@@ -1,4 +1,5 @@
-﻿using ServiceTeacher.Service.Domain.Entities.EmailService;
+﻿using ServiceTeacher.Service.Domain.Entities;
+using ServiceTeacher.Service.Domain.Entities.EmailService;
 using ServiceTeacher.Service.Domain.Helpers;
 
 namespace ServiceTeacher.Service.Infrastructure.Helpers
@@ -17,5 +18,10 @@ namespace ServiceTeacher.Service.Infrastructure.Helpers
         /// Setting of email account for notifications
         /// </summary>
         public EmailSettings EmailAccountSender { get; set; }
+
+        /// <summary>
+        /// Setting of vk auth
+        /// </summary>
+        public VkAuthSettings VkAuth { get; set; }
     }
 }
