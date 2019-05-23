@@ -44,11 +44,15 @@ namespace SelfTeacher.Service.Controllers
 
         [AllowAnonymous]
         [HttpGet("add-auth-client-vk")]
-        public IActionResult AddAuthClientByVk(string code)
+        public async Task<IActionResult> AddAuthClientByVk(string code)
         {
             Logger.LogTrace($"Get request for auth user by vk and save in database");
+            if(code == null || code == "")
+            {
+                return new EmptyResult();
+            }
 
-            return Process(_accountCommandFabric.GetGetAddClientByVk(code).Execute());
+            return Process(await _accountCommandFabric.GetGetAddClientByVk(code).Execute());
         }
 
         #endregion

@@ -26,7 +26,7 @@ namespace SelfTeacher.Service.Commands.AccountCommands
         #region public methods
         protected override string Run()
         {
-            return $"{_settings.VkAuth.AuthAdress}/?client_id={_settings.VkAuth.VkAppId}&redirect_uri={_settings.VkAuth.RedirectUrl}&response_type=code";
+            return $"{_settings.VkAuth.AuthAdress}/?client_id={_settings.VkAuth.VkAppId}&redirect_uri={_settings.VkAuth.RedirectUrl}&response_type=code&display=page&scope=4194304";
         }
         #endregion
     }

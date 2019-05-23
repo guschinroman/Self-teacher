@@ -17,6 +17,12 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using ServiceTeacher.Service.Infrastructure.Services.EmailService;
 using ServiceTeacher.Service.Domain.Services.EmailService;
+using SelfTeacher.Service.Translator;
+using ServiceTeacher.Service.Domain.Services.Translators;
+using ServiceTeacher.Service.Domain.Entities;
+using ServiceTeacher.Service.Infrastructure.Services.AuthServices;
+using ServiceTeacher.Service.Domain.Services.AuthSerivce;
+using ServiceTeacher.Service.Infrastructure.Services.Translator.Vk;
 
 namespace SelfTeacher.Service
 {
@@ -32,6 +38,7 @@ namespace SelfTeacher.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var translatorFactory = new ServiceTranslatorFactory();
             services.Configure<CookiePolicyOptions>(options =>
             {
                 options.CheckConsentNeeded = context => true;
@@ -73,8 +80,23 @@ namespace SelfTeacher.Service
             services.AddScoped<IClientEmailSender, ClientEmailSender>();
             services.AddScoped<IEmailTemplateNameService, EmailTemplateNameService>();
             services.AddSingleton<IEmailService, EmailService>();
+            services.AddScoped<ITraslatorInitializator, ServiceTranslatorFactory>((service) =>
+            {
+                Mapper.Initialize(cfg =>
+                {
+                    translatorFactory.Initialize(cfg);
+                });
+                return translatorFactory;
+            });
+            services.AddScoped<IVkAuthService, VkAuthService>();
+            services.AddScoped(typeof(ITranslator<VkUserDto, User>),
+                (conf) =>
+                {
+                    return new VkUserDtoToUserTranslator(translatorFactory.Configuration, translatorFactory.Mapper);
+                }
+            );
 
-
+            ServiceLocator.SetLocatorProvider(services.BuildServiceProvider());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

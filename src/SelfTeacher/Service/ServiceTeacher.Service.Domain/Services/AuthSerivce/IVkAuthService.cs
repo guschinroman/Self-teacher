@@ -1,12 +1,10 @@
 ﻿using ServiceTeacher.Service.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace ServiceTeacher.Service.Domain.Services.AuthSerivce
 {
     public interface IVkAuthService
     {
-        User GetAndSaveUser(string code);
+        Task<User> GetAndSaveUser(string code);
     }
 }

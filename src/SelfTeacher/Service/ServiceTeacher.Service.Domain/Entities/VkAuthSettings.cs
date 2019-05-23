@@ -19,6 +19,8 @@ namespace ServiceTeacher.Service.Domain.Entities
         /// address of vk access token
         /// </summary>
         public string AccessTokenAddress { get; set; }
+
+        public  string AccessToUserGetVk { get; set; }
         /// <summary>
         /// ID application in VK
         /// </summary>
