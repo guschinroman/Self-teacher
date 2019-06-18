@@ -1,7 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.Infrastructure.Dtos;
+using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Services;
+using ServiceTeacher.Service.Domain.Services.Translators;
 using System.Collections.Generic;
 
 namespace SelfTeacher.Service.Commands.UserCommands
@@ -10,18 +11,18 @@ namespace SelfTeacher.Service.Commands.UserCommands
     {
         #region private fields
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
+        private readonly ITranslator<User, UserDto> _userTranslator;
         #endregion
 
         #region ctor
         public GetAllUserCommand(
             IUserService userService,
-            IMapper mapper,
+            ITranslator<User, UserDto> userTranslator,
             ILogger logger
             ) : base(logger)
         {
             this._userService = userService;
-            this._mapper = mapper;
+            _userTranslator = userTranslator;
         }
         #endregion
 
@@ -34,7 +35,7 @@ namespace SelfTeacher.Service.Commands.UserCommands
 
             foreach(var user in users)
             {
-                userDtos.Add(_mapper.Map<UserDto>(user));
+                userDtos.Add(_userTranslator.Translate(user));
             }
 
             Logger.LogTrace("End command of get all users in system");

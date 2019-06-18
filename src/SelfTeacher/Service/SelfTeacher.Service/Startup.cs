@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SelfTeacher.Service.Helpers.DataContext;
 using ServiceTeacher.Service.Infrastructure.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,7 +12,6 @@ using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Infrastructure.Services;
 using ServiceTeacher.Service.Domain.Helpers;
 using SelfTeacher.Service.CommandFabric;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using ServiceTeacher.Service.Infrastructure.Services.EmailService;
 using ServiceTeacher.Service.Domain.Services.EmailService;
@@ -23,6 +21,8 @@ using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Infrastructure.Services.AuthServices;
 using ServiceTeacher.Service.Domain.Services.AuthSerivce;
 using ServiceTeacher.Service.Infrastructure.Services.Translator.Vk;
+using SelfTeacher.Service.Helpers.DataAccess;
+using SelfTeacher.Service.Services;
 
 namespace SelfTeacher.Service
 {
@@ -38,6 +38,7 @@ namespace SelfTeacher.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             var translatorFactory = new ServiceTranslatorFactory();
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -46,9 +47,8 @@ namespace SelfTeacher.Service
             });
 
             services.AddCors();
-            services.AddDbContext<DataContext>(x => x.UseSqlServer("Server=PC-23\\SQLEXPRESS12;Database=SelfTeacher.dev;Trusted_Connection=True;"));
-
-            services.AddAutoMapper();
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration["connectionString:TeacherDB"]));
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             var appSettingSection = Configuration.GetSection("AppSettings");
@@ -73,30 +73,8 @@ namespace SelfTeacher.Service
                 };
             });
 
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAppSettings>(t => appSettings);
-            services.AddScoped<UserCommandFabric, UserCommandFabric>();
-            services.AddScoped<AccountCommandFabric, AccountCommandFabric>();
-            services.AddScoped<IClientEmailSender, ClientEmailSender>();
-            services.AddScoped<IEmailTemplateNameService, EmailTemplateNameService>();
-            services.AddSingleton<IEmailService, EmailService>();
-            services.AddScoped<ITraslatorInitializator, ServiceTranslatorFactory>((service) =>
-            {
-                Mapper.Initialize(cfg =>
-                {
-                    translatorFactory.Initialize(cfg);
-                });
-                return translatorFactory;
-            });
-            services.AddScoped<IVkAuthService, VkAuthService>();
-            services.AddScoped(typeof(ITranslator<VkUserDto, User>),
-                (conf) =>
-                {
-                    return new VkUserDtoToUserTranslator(translatorFactory.Configuration, translatorFactory.Mapper);
-                }
-            );
-
-            ServiceLocator.SetLocatorProvider(services.BuildServiceProvider());
+            var iocServiceInit = new IocServiceInitialization(services, appSettings, translatorFactory);
+            iocServiceInit.Initialize();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

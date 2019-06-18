@@ -1,30 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using ServiceTeacher.Service.Domain.Services.Translators;
 
 namespace ServiceTeacher.Service.Infrastructure.Services.Translator
 {
-    public class Translator<TSource, TDest> : ITranslator<TSource, TDest>
-        where TSource : class
-        where TDest: class
+    public abstract class Translator<TSource, TDest> : ITranslator<TSource, TDest>
+        where TSource : class, new()
+        where TDest: class, new()
     {
-        protected IMapper _mapper { get; private set; }
-        protected IMapperConfigurationExpression _configuration { get; private set; }
 
-        public Translator(IMapperConfigurationExpression configuration, IMapper mapper)
+        public Translator()
         {
-            _mapper = mapper;
-            _configuration = configuration;
-            var mapping = _configuration.CreateMap<TSource, TDest>();
-            ConfigTranslator(mapping);
         }
 
-        public TDest Translate(TSource source)
+        public  TDest Translate(TSource source)
         {
-            return _mapper.Map<TDest>(source);
+            return Map(source);
         }
+
+        protected abstract TDest Map(TSource source);
 
         public object Translate(object source)
         {
@@ -38,17 +33,10 @@ namespace ServiceTeacher.Service.Infrastructure.Services.Translator
 
         public void Update(TSource source, TDest destination)
         {
-            _mapper.Map(source, destination);
+            Map(source, destination);
         }
 
-        public void Update(object source, object destination)
-        {
-            _mapper.Map((TSource)source, (TDest)destination);
-        }
-
-        protected virtual void ConfigTranslator(IMappingExpression<TSource, TDest> cfg)
-        {
-        }
+        protected abstract void Map(TSource source, TDest destination);
 
         protected string EnumToString<T>(T value)
             where T : struct
@@ -67,5 +55,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services.Translator
         {
             return date.ToString("G");
         }
+        
+
     }
 }

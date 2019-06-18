@@ -46,6 +46,12 @@ namespace ServiceTeacher.Service.Domain.Services
         void Create(User user, string password);
 
         /// <summary>
+        /// Registration Vk users
+        /// </summary>
+        /// <param name="user"></param>
+        Guid CreateVkUser(User user);
+
+        /// <summary>
         /// Edit information for user
         /// </summary>
         /// <param name="user"></param>

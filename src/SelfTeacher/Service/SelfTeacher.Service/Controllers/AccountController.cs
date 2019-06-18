@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.CommandFabric;
-using SelfTeacher.Service.Infrastructure.Dtos;
-using System;
 using System.Threading.Tasks;
 
 namespace SelfTeacher.Service.Controllers

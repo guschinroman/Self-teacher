@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using SelfTeacher.Service.Helpers.DataContext;
+﻿using Microsoft.Extensions.Logging;
+using SelfTeacher.Service.Helpers.DataAccess;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Entities;
+using ServiceTeacher.Service.Domain.Services.Translators;
 using System;
 
 namespace SelfTeacher.Service.Commands.CommonCommands
@@ -19,7 +19,7 @@ namespace SelfTeacher.Service.Commands.CommonCommands
         #region Private fields
         private readonly Tdto _item;
         private readonly DataContext _context;
-        private readonly IMapper _mapper;
+        private readonly ITranslator<Tdto, T> _translator;
         private readonly ILogger _logger;
 
         #endregion
@@ -29,13 +29,13 @@ namespace SelfTeacher.Service.Commands.CommonCommands
         public CreateItemCommand(
             Tdto item,
             DataContext context,
-            IMapper mapper,
+            ITranslator<Tdto, T> translator,
             ILogger logger)
             :base(logger)
         {
-            this._item = item;
+            _item = item;
             _context = context;
-            _mapper = mapper;
+            _translator = translator;
             _logger = logger;
         }
 
@@ -47,7 +47,7 @@ namespace SelfTeacher.Service.Commands.CommonCommands
         {
 
             _logger.LogTrace($"Start command Create item command for type {typeof(T).ToString()}");
-            var T = _mapper.Map<T>(_item);
+            var T = _translator.Translate(_item);
             T.Id = Guid.NewGuid();
             _logger.LogTrace($"Create new ID for entity with type {typeof(T).ToString()} equal {T.Id}");
 

@@ -1,4 +1,6 @@
-﻿namespace SelfTeacher.Service.Infrastructure.Dtos
+﻿using ServiceTeacher.Service.Domain.Entities.Enum;
+
+namespace SelfTeacher.Service.Infrastructure.Dtos
 {
     /// <summary>
     /// User Dto for clients
@@ -29,5 +31,10 @@
         /// Confirm Code of registration
         /// </summary>
         public string ConfirmCode { get; set; }
+
+        /// <summary>
+        /// State of account user
+        /// </summary>
+        public EUserAccountState UserAccountState { get; set; }
     }
 }

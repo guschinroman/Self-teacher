@@ -45,7 +45,7 @@
       <CustomToolNamespace>..\..\Service\ServiceTeacher.Service.Infrastructure\Services\AuthServices\VkAccessTokenDto.cs</CustomToolNamespace>
     </None>
     <None Update="ClientApp\src\models\VkUserDto.ts">
-      <CustomToolNamespace>..\..\Service\ServiceTeacher.Service.Infrastructure\Services\AuthServices\VkUserDto.cs</CustomToolNamespace>
+      <CustomToolNamespace>..\..\Service\ServiceTeacher.Service.Infrastructure\Dtos\Vk\VkUserDto.cs</CustomToolNamespace>
     </None>
   </ItemGroup>
 

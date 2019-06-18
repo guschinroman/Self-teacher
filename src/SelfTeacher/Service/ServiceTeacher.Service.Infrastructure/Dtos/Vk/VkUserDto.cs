@@ -15,14 +15,17 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
         /// last name of user
         /// </summary>
         public string last_name { get; set; }
-
-        /// <summary>
-        /// Email of user
-        /// </summary>
-        public string email { get; set; }
         /// <summary>
         /// User id
         /// </summary>
-        public int uid { get; set; }
+        public int id { get; set; }
+        /// <summary>
+        /// Closed connection
+        /// </summary>
+        public bool is_closed { get; set; }
+        /// <summary>
+        /// Logout
+        /// </summary>
+        public bool can_access_closed { get; set; }
     }
 }

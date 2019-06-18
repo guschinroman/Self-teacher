@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace ServiceTeacher.Service.Domain.Services.Translators
 {
@@ -10,9 +9,7 @@ namespace ServiceTeacher.Service.Domain.Services.Translators
         void Update(TSource source, TDestination destination);
 
         object Translate(object source);
-
-        void Update(object source, object destination);
-
+        
         IEnumerable<TDestination> Translate(IEnumerable<TSource> source);
     }
 

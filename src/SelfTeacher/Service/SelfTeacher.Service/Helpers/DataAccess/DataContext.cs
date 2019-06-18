@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ServiceTeacher.Service.Domain.Entities;
 
-namespace SelfTeacher.Service.Helpers.DataContext
+namespace SelfTeacher.Service.Helpers.DataAccess
 {
     /// <summary>
     /// Class for work with data

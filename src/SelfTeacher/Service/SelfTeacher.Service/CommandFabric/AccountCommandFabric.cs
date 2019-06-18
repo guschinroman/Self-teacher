@@ -1,15 +1,14 @@
-﻿using AutoMapper;
+﻿
 using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.Commands.AccountCommands;
+using SelfTeacher.Service.Infrastructure.Dtos;
+using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Helpers;
 using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Domain.Services.AuthSerivce;
 using ServiceTeacher.Service.Domain.Services.EmailService;
+using ServiceTeacher.Service.Domain.Services.Translators;
 using ServiceTeacher.Service.Infrastructure.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SelfTeacher.Service.CommandFabric
 {
@@ -19,7 +18,7 @@ namespace SelfTeacher.Service.CommandFabric
         private readonly IUserService _userService;
         private readonly IAppSettings _appSettings;
         private readonly IVkAuthService _vkAuthService;
-        private readonly IMapper _mapper;
+        private readonly ITranslator<User, UserDto> _userTranslator;
         private readonly IClientEmailSender _clientEmailSender;
         private readonly ILogger<AccountCommandFabric> _logger;
         #endregion
@@ -29,14 +28,14 @@ namespace SelfTeacher.Service.CommandFabric
             IUserService userService,
             IAppSettings appSettings,
             IVkAuthService vkAuthService,
-            IMapper mapper,
+            ITranslator<User, UserDto> userTranslator,
             IClientEmailSender clientEmailSender,
             ILogger<AccountCommandFabric> logger)
         {
             _userService = userService;
             _appSettings = appSettings;
             _vkAuthService = vkAuthService;
-            _mapper = mapper;
+            _userTranslator = userTranslator;
             _clientEmailSender = clientEmailSender;
             _logger = logger;
         }
@@ -49,9 +48,9 @@ namespace SelfTeacher.Service.CommandFabric
             return new GetAuthVkLinkCommand(_appSettings, _logger);
         }
 
-        public IAsyncCommand GetGetAddClientByVk(string code)
+        public IAsyncCommand<UserDto> GetGetAddClientByVk(string code)
         {
-            return new GetAddClientByVkCommand(code, _vkAuthService, _logger);
+            return new GetAddClientByVkCommand(code, _userTranslator, _vkAuthService, _logger);
         }
 
         #endregion

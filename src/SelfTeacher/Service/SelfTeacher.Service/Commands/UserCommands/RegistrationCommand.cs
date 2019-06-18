@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Entities.Enum;
 using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Domain.Services.EmailService;
+using ServiceTeacher.Service.Domain.Services.Translators;
 using System;
 using System.Threading.Tasks;
 
@@ -17,7 +17,7 @@ namespace SelfTeacher.Service.Commands.UserCommands
     {
         #region Private flelds
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
+        private readonly ITranslator<UserDto, User> _userTranslator;
         private readonly IClientEmailSender _clientEmailSender;
         private readonly UserDto _userDto;
         #endregion
@@ -27,14 +27,14 @@ namespace SelfTeacher.Service.Commands.UserCommands
         public RegistrationCommand(
             UserDto userDto,
             IUserService userService,
-            IMapper mapper,
+            ITranslator<UserDto, User> userTranslator,
             IClientEmailSender clientEmailSender,
             ILogger logger)
             : base(logger)
         {
             _userDto = userDto;
             _userService = userService;
-            _mapper = mapper;
+            _userTranslator = userTranslator;
             _clientEmailSender = clientEmailSender;
         }
         #endregion
@@ -43,7 +43,7 @@ namespace SelfTeacher.Service.Commands.UserCommands
         protected override async Task Run()
         {
             Logger.LogTrace($"Start command for registration user {_userDto.FirstName}");
-            var user = _mapper.Map<User>(_userDto);
+            var user = _userTranslator.Translate(_userDto);
 
             user.ConfirmCode = Guid.NewGuid().ToString();
 

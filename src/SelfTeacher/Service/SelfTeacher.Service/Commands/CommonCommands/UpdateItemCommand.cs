@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using SelfTeacher.Service.Helpers.DataContext;
+﻿using Microsoft.Extensions.Logging;
+using SelfTeacher.Service.Helpers.DataAccess;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Entities;
+using ServiceTeacher.Service.Domain.Services.Translators;
 using System;
 
 namespace SelfTeacher.Service.Commands.CommonCommands
@@ -20,8 +20,8 @@ namespace SelfTeacher.Service.Commands.CommonCommands
 
         private readonly Tdto _item;
         private readonly Guid _Id;
+        private readonly ITranslator<Tdto, T> _translator;
         private readonly DataContext _context;
-        private readonly IMapper _mapper;
         private readonly ILogger _logger;
 
         #endregion
@@ -31,15 +31,15 @@ namespace SelfTeacher.Service.Commands.CommonCommands
         public UpdateItemCommand(
             Tdto item,
             Guid Id,
+            ITranslator<Tdto, T> translator,
             DataContext context,
-            IMapper mapper,
             ILogger logger)
             : base(logger)
         {
             _item = item;
             _Id = Id;
+            _translator = translator;
             _context = context;
-            _mapper = mapper;
             _logger = logger;
         }
 
@@ -50,7 +50,7 @@ namespace SelfTeacher.Service.Commands.CommonCommands
         protected override void Run()
         {
             _logger.LogTrace($"Start command Update item command for type {typeof(T).ToString()} and id {_Id}");
-            var T = _mapper.Map<T>(_item);
+            var T = _translator.Translate(_item);
             
             _context.Update(T);
 

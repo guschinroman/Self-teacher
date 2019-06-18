@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SelfTeacher.Service.Helpers.DataContext;
+using SelfTeacher.Service.Helpers.DataAccess;
 using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Helpers;
 using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Domain.Services.AuthSerivce;
 using ServiceTeacher.Service.Domain.Services.Translators;
+using ServiceTeacher.Service.Services.AuthServices;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -20,10 +21,6 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
         /// Access code from VK
         /// </summary>
         private string _accessCode;
-        /// <summary>
-        /// AccessToken after authentication
-        /// </summary>
-        private string _accessToken;
 
         private readonly DataContext _context;
         private readonly IAppSettings _settings;
@@ -60,12 +57,12 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
         {
             _accessCode = code;
             _vkAccessTokenDto = await AuthenticateUserInVk();
-            var user = await GetUserInFoFromVk(_vkAccessTokenDto);
+            var user = await GetUserFromVk(_vkAccessTokenDto);
             user.Id = Guid.NewGuid();
 
-            _userService.Create(user, "");
+            var id = _userService.CreateVkUser(user);
 
-            return _userService.GetById(user.Id);
+            return _userService.GetById(id);
         }
         #endregion
 
@@ -90,7 +87,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
             return accessDto;
         }
 
-        private async Task<User> GetUserInFoFromVk(VkAccessTokenDto vkAccessTokenDto)
+        private async Task<User> GetUserFromVk(VkAccessTokenDto vkAccessTokenDto)
         {
             _logger.LogTrace("Start create query for getting user from VK");
 
@@ -104,9 +101,11 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
 
             _logger.LogTrace($"Getting query {uriBuilder.Query}");
             var vkAnswer = await _httpClient.GetStringAsync(uriBuilder.ToString());
-            var vkUserDto = JsonConvert.DeserializeObject<VkUserDto>(vkAnswer);
+            var responce = new { response = new VkUserDto[1] };
+            var vkUserDto = JsonConvert.DeserializeAnonymousType(vkAnswer, responce).response[0];
 
-            _logger.LogTrace($"Getting responce with info email - {vkUserDto.email}, first_name - {vkUserDto.first_name}, last_name - {vkUserDto.last_name}");
+
+            _logger.LogTrace($"Getting responce with info first_name - {vkUserDto.first_name}, last_name - {vkUserDto.last_name}");
 
             return _translator.Translate(vkUserDto);
 

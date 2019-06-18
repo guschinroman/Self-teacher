@@ -44,7 +44,7 @@ namespace SelfTeacher.Service.Commands
 
     public abstract class AsyncCommand<T> : IAsyncCommand<T>
     {
-        private readonly ILogger _logger;
+        protected readonly ILogger _logger;
 
         protected AsyncCommand(ILogger logger)
         {

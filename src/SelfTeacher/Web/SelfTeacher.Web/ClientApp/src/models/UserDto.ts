@@ -8,6 +8,7 @@ export class UserDto  {
 	public Email?: string = undefined;
 	public Password?: string = undefined;
 	public ConfirmCode?: string = undefined;
+	public UserAccountState?: EUserAccountState = undefined;
 	public Id?: string = undefined;
 }
  

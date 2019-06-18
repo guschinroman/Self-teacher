@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
+namespace ServiceTeacher.Service.Services.AuthServices
 {
     public class AccessTokenVkParams
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using SelfTeacher.Service.Helpers.DataContext;
+using SelfTeacher.Service.Helpers.DataAccess;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Entities.Enum;
@@ -108,6 +108,32 @@ namespace ServiceTeacher.Service.Infrastructure.Services
 
             _context.Users.Add(user);
             _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Registration of vk users
+        /// </summary>
+        /// <param name="user"></param>
+        public Guid CreateVkUser(User user)
+        {
+            if (_context.Users.Any(t => t.Vk_id == user.Vk_id))
+            {
+                var dbUser = _context.Users.FirstOrDefault(t => t.Vk_id == user.Vk_id);
+                if (dbUser.UserAccountState == EUserAccountState.Banned || dbUser.UserAccountState == EUserAccountState.Deleted)
+                {
+                    throw new AppException("Username \"" + user.Username + "\" is banned or deleted");
+                }
+                return dbUser.Id;
+            }
+
+            user.PasswordHash = new byte[0];
+            user.PasswordSalt = new byte[0];
+            user.UserAccountState = EUserAccountState.NotConfirmed;
+
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+            return user.Id;
         }
 
         /// <summary>
@@ -243,7 +269,6 @@ namespace ServiceTeacher.Service.Infrastructure.Services
             }
             return true;
         }
-
         #endregion
     }
 }

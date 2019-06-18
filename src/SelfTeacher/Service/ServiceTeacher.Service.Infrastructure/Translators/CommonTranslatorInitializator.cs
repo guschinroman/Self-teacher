@@ -1,6 +1,5 @@
 ﻿using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Services;
-using AutoMapper;
 using ServiceTeacher.Service.Infrastructure.Services.AuthServices;
 using ServiceTeacher.Service.Domain.Services.Translators;
 using System.Collections.Generic;
@@ -15,16 +14,9 @@ namespace ServiceTeacher.Service.Infrastructure.Translators
     {
         private readonly List<TranslatorInfo> _translators;
 
-        public IMapper Mapper { get; private set; }
-        public IMapperConfigurationExpression Configuration { get; private set; }
-        public MapperConfiguration MapperConfiguration { get; private set; }
-
         public CommonTranslatorInitializator()
         {
             _translators = new List<TranslatorInfo>();
-
-            MapperConfiguration = new MapperConfiguration(c => Configuration = c);
-            Mapper = MapperConfiguration.CreateMapper();
         }
 
         public ITranslator<TSource, TDestination> GetTranslator<TSource, TDestination>()
@@ -35,7 +27,7 @@ namespace ServiceTeacher.Service.Infrastructure.Translators
                 .Translator;
         }
 
-        public virtual void Initialize(IMapperConfigurationExpression cfg)
+        public virtual void Initialize()
         {
             RegisterTranslator(CreateTranslator<VkUserDto, User, VkUserDtoToUserTranslator>());
         }

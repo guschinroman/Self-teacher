@@ -1,6 +1,7 @@
 ﻿using ServiceTeacher.Service.Domain.Entities.Enum;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ServiceTeacher.Service.Domain.Entities
 {
@@ -10,6 +11,7 @@ namespace ServiceTeacher.Service.Domain.Entities
     public class Entity
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         /// <summary>
         /// Idetificator of entity
         /// </summary>

@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
-using SelfTeacher.Service.Helpers.DataContext;
+﻿using Microsoft.Extensions.Logging;
+using SelfTeacher.Service.Helpers.DataAccess;
 using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Entities.Enum;
 using ServiceTeacher.Service.Infrastructure.Exceptions;
@@ -15,8 +14,6 @@ namespace SelfTeacher.Service.Commands.CommonCommands
 
         private readonly Guid _Id;
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
-
         #endregion
 
         #region ctor
@@ -24,13 +21,11 @@ namespace SelfTeacher.Service.Commands.CommonCommands
         public DeleteItemCommand(
             Guid Id,
             DataContext dataContext,
-            IMapper mapper,
             ILogger logger)
             : base(logger)
         {
             _Id = Id;
             _dataContext = dataContext;
-            _mapper = mapper;
         }
 
         #endregion

@@ -1,7 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.Infrastructure.Dtos;
+using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Services;
+using ServiceTeacher.Service.Domain.Services.Translators;
 using System;
 
 namespace SelfTeacher.Service.Commands.UserCommands
@@ -14,20 +15,20 @@ namespace SelfTeacher.Service.Commands.UserCommands
         #region private fields
         private readonly Guid _id;
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
+        private readonly ITranslator<User, UserDto> _userTranslator;
         #endregion
 
         #region ctor
         public GetUserByIdCommand(
             Guid id,
             IUserService userService,
-            IMapper mapper,
+            ITranslator<User, UserDto> userTranslator,
             ILogger logger
             ): base (logger)
         {
-            this._id = id;
-            this._userService = userService;
-            this._mapper = mapper;
+            _id = id;
+            _userService = userService;
+            _userTranslator = userTranslator;
         }
         #endregion
 
@@ -39,7 +40,7 @@ namespace SelfTeacher.Service.Commands.UserCommands
 
             try
             {
-                user = _mapper.Map<UserDto>(_userService.GetById(_id));
+                user = _userTranslator.Translate(_userService.GetById(_id));
             }
             catch(Exception ex)
             {
