@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServiceTeacher.Service.Domain.Entities.Enum;
+using System;
 
 namespace SelfTeacher.Service.Infrastructure.Dtos
 
@@ -10,5 +11,7 @@ namespace SelfTeacher.Service.Infrastructure.Dtos
         public string Token { get; set; }
 
         public TimeSpan AccessTokenLiveTime { get; set; }
+
+        public EUserAccountState State { get; set; }
     }
 }

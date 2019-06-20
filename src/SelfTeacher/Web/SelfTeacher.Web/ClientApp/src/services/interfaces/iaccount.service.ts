@@ -1,3 +1,4 @@
+import { AuthenticateDto } from "../../models/AuthenticateDto";
 
 
 export abstract class IAccountService {
@@ -7,5 +8,7 @@ export abstract class IAccountService {
      * @returns Promise after request to server
      */
     abstract GetVkAuthLink(): Promise<string>;
+
+    abstract GetAuthenticationDtoByAccessToken(accessToken: string): Promise<AuthenticateDto>;
 }
 

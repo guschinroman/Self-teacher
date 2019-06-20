@@ -27,5 +27,10 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
         /// Logout
         /// </summary>
         public bool can_access_closed { get; set; }
+
+        /// <summary>
+        /// Access token to vk
+        /// </summary>
+        public string access_token { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+{
+    "VkConfirmPage": {
+        "Text": {
+            "HeaderText": ["Last step", "Еще пара шагов"],
+            "MainText": ["Enter your email for confirm acccount", "Введите ваш email для завершения регистрации"],
+            "Register": ["Send", "Отправить запрос"]
+        },
+        "Fields": {
+            "Email": ["Email", "Email"]
+        },
+        "Validation": {
+            "EmailRequired": ["Email is required", "Заполните поле email"],
+            "EmailIncorrect": ["Email incorrect", "Введите верный пароль"]
+        }
+    }
+}

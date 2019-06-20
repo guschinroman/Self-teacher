@@ -13,8 +13,6 @@ import { Typography, FormControl, InputLabel, Input, Button, Paper, Avatar, Grid
 import { Inject, Container } from 'typescript-ioc';
 import { connect } from 'react-redux';
 import { IAccountService } from '../../services/interfaces/iaccount.service';
-import { IAuthenticateHttp } from '../../services/communication/iauthenticate-http';
-import { IUserService } from '../../services/interfaces/iuser.service';
 
 type Props = LocalizeContextProps & {
     loggingIn: Boolean,

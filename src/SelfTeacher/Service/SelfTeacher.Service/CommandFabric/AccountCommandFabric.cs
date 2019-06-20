@@ -48,9 +48,14 @@ namespace SelfTeacher.Service.CommandFabric
             return new GetAuthVkLinkCommand(_appSettings, _logger);
         }
 
-        public IAsyncCommand<UserDto> GetGetAddClientByVk(string code)
+        public IAsyncCommand<string> GetGetAddClientByVk(string code)
         {
             return new GetAddClientByVkCommand(code, _userTranslator, _vkAuthService, _logger);
+        }
+
+        public ICommand<AuthenticateDto> GetGetAuthenticationByVk(string accessToken)
+        {
+            return new GetAuthenticationByVk(accessToken, _userTranslator, _userService, _logger);
         }
 
         #endregion

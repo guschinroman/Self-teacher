@@ -1,41 +1,43 @@
 ﻿using Microsoft.Extensions.Logging;
 using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Entities;
+using ServiceTeacher.Service.Domain.Services;
 using ServiceTeacher.Service.Domain.Services.AuthSerivce;
 using ServiceTeacher.Service.Domain.Services.Translators;
+using System;
 using System.Threading.Tasks;
 
 namespace SelfTeacher.Service.Commands.AccountCommands
 {
-    public class GetAddClientByVkCommand : AsyncCommand<string>
+    public class GetAuthenticationByVk : Command<AuthenticateDto>
     {
-        #region private fields
-        private readonly IVkAuthService _vkAuthService;
-        private readonly string _code;
+        #region Private fiends
+        private readonly string _accessToken;
         private readonly ITranslator<User, UserDto> _userTranslator;
+        private readonly IUserService _userService;
         #endregion
 
         #region ctor
-        public GetAddClientByVkCommand(
-            string code,
+        public GetAuthenticationByVk(
+            string accessToken,
             ITranslator<User, UserDto> userTranslator,
-            IVkAuthService vkAuthService,
+            IUserService userService,
             ILogger logger)
-            : base(logger)
+            :base(logger)
         {
-            _code = code;
+            _accessToken = accessToken;
             _userTranslator = userTranslator;
-            _vkAuthService = vkAuthService;
+            _userService = userService;
         }
+
         #endregion
 
-        #region public methods
-        protected async override Task<string> Run()
+        #region Public methods
+        protected override AuthenticateDto Run()
         {
-            _logger.LogTrace($"Start command GetAddClientByVkCommand with code {_code}");
-            return await _vkAuthService.GetAndSaveUser(_code);
-        }
 
+            return _userService.AuthenticateByAccessTokenVk(_accessToken) as AuthenticateDto;
+        }
         #endregion
     }
 }

@@ -5,6 +5,6 @@ namespace ServiceTeacher.Service.Domain.Services.AuthSerivce
 {
     public interface IVkAuthService
     {
-        Task<User> GetAndSaveUser(string code);
+        Task<string> GetAndSaveUser(string code);
     }
 }

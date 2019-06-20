@@ -1,4 +1,4 @@
-﻿
+﻿import { EUserAccountState } from './EUserAccountState';
 
 
 export class UserDto  { 

@@ -87,7 +87,14 @@ ${
 
 	void InitializeDependencies()
 	{
-    
+        _dependencies.Add("UserDto", new List<Dependency>
+      {        
+        new Dependency("EUserAccountState", "./EUserAccountState")
+      }); 
+      _dependencies.Add("AuthenticateDto", new List<Dependency>
+      {        
+        new Dependency("EUserAccountState", "./EUserAccountState")
+      }); 
 	}
 
 	string GenerateImports(Class clazz)

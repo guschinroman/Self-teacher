@@ -1,7 +1,7 @@
 ﻿import React = require('react');
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LocalizeContextProps, withLocalize, InitializeOptions } from 'react-localize-redux';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Route, Router } from 'react-router-dom';
 import { AnyAction } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
 
@@ -10,11 +10,13 @@ import LanguageToggle from '../Common/languageSelector';
 import { PrivateRoute } from '../Common/PrivateRoute';
 import { HomePage } from '../HomePage/HomePage';
 import LoginPage from '../LoginPage/LoginPage';
+import AdditionalVkPage from '../VkConfirmAuthentication/VkConfirmAuthentication';
 import { RegisterPage } from '../RegisterPage';
 import { HistoryService } from './../../helpers/history';
 import { ConstStringsService } from './../../services/common/constString.service';
 import { connect } from 'react-redux';
 import { IocConfig } from '../../services/ioc/AppContainer';
+import VkConfirmAuthentication from '../VkConfirmAuthentication/VkConfirmAuthentication';
 
 type State = {
     alert: any
@@ -76,6 +78,7 @@ class App extends React.Component<Props, State> {
                                 <PrivateRoute exact path="/" component={HomePage} />
                                 <Route path="/login" component={LoginPage} />
                                 <Route path="/register" component={RegisterPage} />
+                                <Route path="/vkConfirmAuthentication/:accessToken" component={VkConfirmAuthentication} />
                             </div>
                         </HashRouter>
                     </div>

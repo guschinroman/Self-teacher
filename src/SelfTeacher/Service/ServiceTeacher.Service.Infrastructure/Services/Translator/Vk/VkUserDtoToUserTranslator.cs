@@ -17,6 +17,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services.Translator.Vk
             user.Lastname = source.last_name;
             user.Username = $"{source.last_name} {source.first_name}";
             user.Vk_id = source.id;
+            user.AccessTokenVk = source.access_token;
 
             return user;
         }
@@ -27,6 +28,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services.Translator.Vk
             destination.Lastname = source.last_name;
             destination.Username = source.last_name + source.first_name;
             destination.Vk_id = source.id;
+            destination.AccessTokenVk = source.access_token;
         }
     }
 }

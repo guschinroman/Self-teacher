@@ -50,7 +50,18 @@ namespace SelfTeacher.Service.Controllers
                 return new EmptyResult();
             }
 
-            return Process(await _accountCommandFabric.GetGetAddClientByVk(code).Execute());
+            var userDto = await _accountCommandFabric.GetGetAddClientByVk(code).Execute();
+
+            return  Redirect($"http://localhost:8080/#/vkConfirmAuthentication/{userDto.Data}");
+        }
+
+        [AllowAnonymous]
+        [HttpGet("authenticate-vk/{accessToken}")]
+        public IActionResult AuthenticateVk(string accessToken)
+        {
+            Logger.LogTrace($"Get request for authentication vk with access token");
+
+            return Process(_accountCommandFabric.GetGetAuthenticationByVk(accessToken).Execute());
         }
 
         #endregion

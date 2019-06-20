@@ -45,7 +45,6 @@ namespace ServiceTeacher.Service.Infrastructure.Services
         /// <returns></returns>
         public object Authenticate(string username, string password)
         {
-
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
@@ -61,29 +60,30 @@ namespace ServiceTeacher.Service.Infrastructure.Services
                 return null;
             }
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var authDto = GenerateUserToken(user, user.UserAccountState);
 
+            user.Token = authDto.Token;
 
-            var authDto = new AuthenticateDto
-            {
-                UserId = user.Id,
-                AccessTokenLiveTime = new TimeSpan(7,0,0,0),
-                Token = tokenHandler.WriteToken(token)
-            };
+            _context.SaveChanges();
 
             return authDto;
+        }
 
+        public object AuthenticateByAccessTokenVk(string accessToken)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+                return null;
+
+            var user = _context.Users.FirstOrDefault(u => u.AccessTokenVk == accessToken);
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var authDto = GenerateUserToken(user, user.UserAccountState);
+
+            return authDto;
         }
 
         /// <summary>
@@ -114,8 +114,9 @@ namespace ServiceTeacher.Service.Infrastructure.Services
         /// Registration of vk users
         /// </summary>
         /// <param name="user"></param>
-        public Guid CreateVkUser(User user)
+        public string CreateVkUser(User user)
         {
+            AuthenticateDto authDto;
             if (_context.Users.Any(t => t.Vk_id == user.Vk_id))
             {
                 var dbUser = _context.Users.FirstOrDefault(t => t.Vk_id == user.Vk_id);
@@ -123,7 +124,12 @@ namespace ServiceTeacher.Service.Infrastructure.Services
                 {
                     throw new AppException("Username \"" + user.Username + "\" is banned or deleted");
                 }
-                return dbUser.Id;
+                authDto = GenerateUserToken(dbUser, dbUser.UserAccountState);
+                dbUser.AccessTokenVk = user.AccessTokenVk;
+                dbUser.Token = user.Token;
+                _context.SaveChanges();
+
+                return user.AccessTokenVk;
             }
 
             user.PasswordHash = new byte[0];
@@ -133,7 +139,9 @@ namespace ServiceTeacher.Service.Infrastructure.Services
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return user.Id;
+            authDto = GenerateUserToken(user, user.UserAccountState);
+            
+            return user.AccessTokenVk;
         }
 
         /// <summary>
@@ -268,6 +276,33 @@ namespace ServiceTeacher.Service.Infrastructure.Services
                 }
             }
             return true;
+        }
+
+        private AuthenticateDto GenerateUserToken(User user, EUserAccountState state)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+
+            var authDto = new AuthenticateDto
+            {
+                UserId = user.Id,
+                AccessTokenLiveTime = new TimeSpan(7, 0, 0, 0),
+                Token = state == EUserAccountState.Confirmed ? tokenHandler.WriteToken(token) : "",
+                State = state
+            };
+
+            return authDto;
         }
         #endregion
     }

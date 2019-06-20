@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using SelfTeacher.Service.Helpers.DataAccess;
+using SelfTeacher.Service.Infrastructure.Dtos;
 using ServiceTeacher.Service.Domain.Entities;
 using ServiceTeacher.Service.Domain.Helpers;
 using ServiceTeacher.Service.Domain.Services;
@@ -53,16 +54,16 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
 
         #region public methods
 
-        public async Task<User> GetAndSaveUser(string code)
+        public async Task<string> GetAndSaveUser(string code)
         {
             _accessCode = code;
             _vkAccessTokenDto = await AuthenticateUserInVk();
             var user = await GetUserFromVk(_vkAccessTokenDto);
             user.Id = Guid.NewGuid();
 
-            var id = _userService.CreateVkUser(user);
+            var authDto = _userService.CreateVkUser(user);
 
-            return _userService.GetById(id);
+            return authDto;
         }
         #endregion
 
@@ -104,6 +105,7 @@ namespace ServiceTeacher.Service.Infrastructure.Services.AuthServices
             var responce = new { response = new VkUserDto[1] };
             var vkUserDto = JsonConvert.DeserializeAnonymousType(vkAnswer, responce).response[0];
 
+            vkUserDto.access_token = vkAccessTokenDto.access_token;
 
             _logger.LogTrace($"Getting responce with info first_name - {vkUserDto.first_name}, last_name - {vkUserDto.last_name}");
 

@@ -18,6 +18,13 @@ namespace ServiceTeacher.Service.Domain.Services
         object Authenticate(string username, string password);
 
         /// <summary>
+        /// Mehtod for authentincation by VK API
+        /// </summary>
+        /// <param name="accessToken">Access token from API</param>
+        /// <returns></returns>
+        object AuthenticateByAccessTokenVk(string accessToken);
+
+        /// <summary>
         /// Method for getting all users
         /// </summary>
         /// <returns></returns>
@@ -49,7 +56,7 @@ namespace ServiceTeacher.Service.Domain.Services
         /// Registration Vk users
         /// </summary>
         /// <param name="user"></param>
-        Guid CreateVkUser(User user);
+        string CreateVkUser(User user);
 
         /// <summary>
         /// Edit information for user

@@ -33,4 +33,8 @@ export class ApiPathService {
     public static getVkAuthPath() {
         return `${ConfigApplication.apiUrl}/account/get-vk-authenticate-link`;
     }
+
+    public static getUserByAccessCode(accessToken: string) {
+        return `${ConfigApplication.apiUrl}/account/authenticate-vk/` + accessToken;
+    }
 }

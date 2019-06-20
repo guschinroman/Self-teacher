@@ -43,10 +43,13 @@ namespace ServiceTeacher.Service.Domain.Entities
         /// Confirm Code of registration
         /// </summary>
         public string ConfirmCode { get; set; }
-
         /// <summary>
         /// Vk user id, can be null
         /// </summary>
         public int Vk_id { get; set; }
+        /// <summary>
+        /// Access token to vk
+        /// </summary>
+        public string AccessTokenVk { get; set; }
     }
 }
